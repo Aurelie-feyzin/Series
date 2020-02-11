@@ -31,7 +31,11 @@ L'utilisation d'AliceBundle permet non seulement d'utiliser [Faker](https://gith
 
 ### Exemple simple
 
-> TODO ajout exemple simple.
+```yaml
+App\Entity\Category:
+  category_{1..10}:
+    name: '<word()>'
+```
 
 ### Lancer les fixtures
 
