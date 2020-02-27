@@ -31,6 +31,7 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
+        "friendsofphp/php-cs-fixer": "^2.16",
         "hautelook/alice-bundle": "^2.7",
         "phpmd/phpmd": "@stable",
         "phpstan/extension-installer": "^1.0",
@@ -82,10 +83,14 @@
             "@auto-scripts"
         ],
         "test": [
+            "@test:php-cs-fixer",
             "@test:phpcpd",
             "@test:phpmd",
             "@test:phpstan",
-            "@test:security-checker",
+            "@test:security-checker"
+        ],
+        "test:php-cs-fixer": [
+            "vendor/bin/php-cs-fixer fix --stop-on-violation"
         ],
         "test:phpcpd": [
             "vendor/bin/phpcpd --fuzzy src tests"
@@ -113,6 +118,7 @@
         ],
         "scripts-descriptions": {
             "test": "Exécute tous les tests automatisés.",
+            "test:php-cs-fixer": "Vérifie le formatage des fichiers PHP.",
             "test:phpcpd": "Détecte les portions de codes très similaires (probablemnt des copiés-collés).",
             "test:phpmd": "Détecte certains défauts de programmation (nommage, variables inutilisées, etc...)",
             "test:phpstan": "Détecte des défauts de programmation à l'aide du typage.",
