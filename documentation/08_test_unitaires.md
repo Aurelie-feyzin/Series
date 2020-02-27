@@ -24,4 +24,10 @@ Cela consiste essentiellement à tester les règles de validations.
 
 Les tests sont a écrire après la création de l'entité mais avant de faire la migration. Test first, d'abord le test puis écrire la règle de validation.
 
+pour lancer les tests
+
+```bash
+ php bin/phpunit
+```
+
 [grafikart](https://www.grafikart.fr/tutoriels/tests-symfony-entity-1215)
