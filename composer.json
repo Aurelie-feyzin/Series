@@ -32,6 +32,7 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "hautelook/alice-bundle": "^2.7",
+        "sebastian/phpcpd": "^4.1",
         "sensiolabs/security-checker": "^6.0",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
@@ -75,13 +76,18 @@
             "@auto-scripts"
         ],
         "test": [
+            "@test:phpcpd",
             "@test:security-checker",
+        "test:phpcpd": [
+            "vendor/bin/phpcpd --fuzzy src tests"
+        ],
         ],
         "test:security-checker": [
             "vendor/bin/security-checker security:check composer.lock"
         ],
         "scripts-descriptions": {
             "test": "Exécute tous les tests automatisés.",
+            "test:phpcpd": "Détecte les portions de codes très similaires (probablemnt des copiés-collés).",
             "test:security-checker": "Vérifie qu'aucun paquet ne présente un risque de sécurité.",
     },
     "conflict": {
