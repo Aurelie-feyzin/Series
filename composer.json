@@ -32,6 +32,7 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "hautelook/alice-bundle": "^2.7",
+        "sensiolabs/security-checker": "^6.0",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
@@ -65,13 +66,23 @@
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "security-checker security:check": "script"
         },
         "post-install-cmd": [
             "@auto-scripts"
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "test": [
+            "@test:security-checker",
+        ],
+        "test:security-checker": [
+            "vendor/bin/security-checker security:check composer.lock"
+        ],
+        "scripts-descriptions": {
+            "test": "Exécute tous les tests automatisés.",
+            "test:security-checker": "Vérifie qu'aucun paquet ne présente un risque de sécurité.",
     },
     "conflict": {
         "symfony/symfony": "*"
