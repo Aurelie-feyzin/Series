@@ -34,6 +34,7 @@
         "friendsofphp/php-cs-fixer": "^2.16",
         "hautelook/alice-bundle": "^2.7",
         "jakub-onderka/php-parallel-lint": "^1.0",
+        "maglnet/composer-require-checker": "^2.0.0",
         "phpmd/phpmd": "@stable",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.11",
@@ -89,6 +90,8 @@
             "@test:phpcpd",
             "@test:phpmd",
             "@test:phpstan",
+            "@test:security-checker",
+            "@test:composer-require-checker",
             "@test:security-checker"
         ],
         "test:lint": [
@@ -117,6 +120,9 @@
         "test:security-checker": [
             "vendor/bin/security-checker security:check composer.lock"
         ],
+        "test:composer-require-checker": [
+            "php -d error_reporting=0 -d xdebug.max_nesting_level=1500 `which composer-require-checker` --ignore-parse-errors"
+        ],
         "scripts-descriptions": {
             "test": "Exécute tous les tests automatisés.",
             "test:lint": "Vérifie la syntaxe des fichiers PHP, Yaml et Twig.",
@@ -124,7 +130,8 @@
             "test:phpcpd": "Détecte les portions de codes très similaires (probablemnt des copiés-collés).",
             "test:phpmd": "Détecte certains défauts de programmation (nommage, variables inutilisées, etc...)",
             "test:phpstan": "Détecte des défauts de programmation à l'aide du typage.",
-            "test:security-checker": "Vérifie qu'aucun paquet ne présente un risque de sécurité."
+            "test:security-checker": "Vérifie qu'aucun paquet ne présente un risque de sécurité.",
+            "test:composer-require-checker": "Vérifie que toutes les dépendances utilisées dans les sources sont bien listées dans le composer.json.",
     },
     "conflict": {
         "symfony/symfony": "*"
