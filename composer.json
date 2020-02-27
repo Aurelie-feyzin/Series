@@ -35,6 +35,7 @@
         "hautelook/alice-bundle": "^2.7",
         "jakub-onderka/php-parallel-lint": "^1.0",
         "maglnet/composer-require-checker": "^2.0.0",
+        "phploc/phploc": "^5.0",
         "phpmd/phpmd": "@stable",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.11",
@@ -75,7 +76,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+            "assets:install %PUBLIC_DIR%": "symfony-cmd",
             "security-checker security:check": "script"
         },
         "post-install-cmd": [
@@ -85,6 +86,7 @@
             "@auto-scripts"
         ],
         "test": [
+            "@test:phploc",
             "@test:lint",
             "@test:php-cs-fixer",
             "@test:phpcpd",
@@ -94,6 +96,9 @@
             "@test:composer-require-checker",
             "@test:security-checker",
             "@test:phpunit"
+        ],
+        "test:phploc": [
+            "vendor/bin/phploc src tests"
         ],
         "test:lint": [
             "vendor/bin/parallel-lint -j $(nproc) src tests config",
@@ -129,6 +134,7 @@
         ],
         "scripts-descriptions": {
             "test": "Exécute tous les tests automatisés.",
+            "test:phploc": "Calcule des stats sur les sources.",
             "test:lint": "Vérifie la syntaxe des fichiers PHP, Yaml et Twig.",
             "test:php-cs-fixer": "Vérifie le formatage des fichiers PHP.",
             "test:phpcpd": "Détecte les portions de codes très similaires (probablemnt des copiés-collés).",
