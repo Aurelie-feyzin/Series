@@ -1,0 +1,9 @@
+parameters:
+    doctrine:
+        objectManagerLoader: build/phpstan/doctrine-orm-bootstrap.php
+    symfony:
+         container_xml_path: var/cache/test/srcApp_KernelTestDebugContainer.xml
+         console_application_loader: build/phpstan/console-loader.php
+
+    autoload_files:
+        - bin/.phpunit/phpunit-7.5-0/vendor/autoload.php
