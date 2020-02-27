@@ -92,7 +92,8 @@
             "@test:phpstan",
             "@test:security-checker",
             "@test:composer-require-checker",
-            "@test:security-checker"
+            "@test:security-checker",
+            "@test:phpunit"
         ],
         "test:lint": [
             "vendor/bin/parallel-lint -j $(nproc) src tests config",
@@ -123,6 +124,9 @@
         "test:composer-require-checker": [
             "php -d error_reporting=0 -d xdebug.max_nesting_level=1500 `which composer-require-checker` --ignore-parse-errors"
         ],
+        "test:phpunit": [
+            "vendor/bin/phpunit"
+        ],
         "scripts-descriptions": {
             "test": "Exécute tous les tests automatisés.",
             "test:lint": "Vérifie la syntaxe des fichiers PHP, Yaml et Twig.",
@@ -132,6 +136,8 @@
             "test:phpstan": "Détecte des défauts de programmation à l'aide du typage.",
             "test:security-checker": "Vérifie qu'aucun paquet ne présente un risque de sécurité.",
             "test:composer-require-checker": "Vérifie que toutes les dépendances utilisées dans les sources sont bien listées dans le composer.json.",
+            "test:phpunit": "Exécute les test unitaires automatisés"
+        }
     },
     "conflict": {
         "symfony/symfony": "*"
