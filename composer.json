@@ -32,6 +32,7 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.3",
         "hautelook/alice-bundle": "^2.7",
+        "phpmd/phpmd": "@stable",
         "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "^0.12.11",
         "phpstan/phpstan-doctrine": "^0.12.9",
@@ -82,11 +83,16 @@
         ],
         "test": [
             "@test:phpcpd",
+            "@test:phpmd",
             "@test:phpstan",
             "@test:security-checker",
         ],
         "test:phpcpd": [
             "vendor/bin/phpcpd --fuzzy src tests"
+        ],
+        "test:phpmd": [
+            "vendor/bin/phpmd src text phpmd-ruleset.xml --suffixes=php",
+            "vendor/bin/phpmd tests text phpmd-ruleset.xml --suffixes=php"
         ],
         "test:phpstan": [
             "@php bin/console cache:warmup --env=dev",
@@ -108,6 +114,7 @@
         "scripts-descriptions": {
             "test": "Exécute tous les tests automatisés.",
             "test:phpcpd": "Détecte les portions de codes très similaires (probablemnt des copiés-collés).",
+            "test:phpmd": "Détecte certains défauts de programmation (nommage, variables inutilisées, etc...)",
             "test:phpstan": "Détecte des défauts de programmation à l'aide du typage.",
             "test:security-checker": "Vérifie qu'aucun paquet ne présente un risque de sécurité.",
         }
