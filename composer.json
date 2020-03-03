@@ -97,6 +97,25 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
+        "db:diff": [
+            "@php bin/console doctrine:migration:diff"
+        ],
+        "db:migrate": [
+            "@php bin/console doctrine:migration:migrate --no-interaction --quiet"
+        ],
+        "not-in-prod": [
+            "test \"$APP_ENV\" != prod"
+        ],
+        "db:reset": [
+            "@not-in-prod",
+            "@php bin/console doctrine:database:drop --no-interaction --verbose  --force",
+            "@php bin/console doctrine:database:create --no-interaction --verbose",
+            "@db:migrate"
+        ],
+        "db:load-fixtures": [
+            "@db:reset",
+            "@php bin/console hautelook:fixtures:load --no-interaction --verbose --append"
+        ],
         "test": [
             "@test:phploc",
             "@test:lint",
