@@ -25,7 +25,7 @@ class Program
 
     /**
      * @var string
-     * @ORM\Column(type="string", length=75)
+     * @ORM\Column(type="string", length=75, unique=true)
      * @Assert\NotBlank
      * @Assert\Type("string")
      */
