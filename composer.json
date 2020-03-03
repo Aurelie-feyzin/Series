@@ -161,7 +161,7 @@
             "php -d error_reporting=0 -d xdebug.max_nesting_level=1500 `which composer-require-checker` --ignore-parse-errors"
         ],
         "test:phpunit": [
-            "vendor/bin/phpunit"
+            "php bin/phpunit"
         ],
         "scripts-descriptions": {
             "test": "Exécute tous les tests automatisés.",
