@@ -3,33 +3,23 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Category;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger as DoctrineOrmPurger;
+use App\Tests\Interfaces\FixtureInterface;
+use App\Tests\Traits\AssertHasErrorsTraits;
+use App\Tests\Traits\FixtureTrait;
+use Doctrine\Bundle\DoctrineBundle\Registry;
 use Fidry\AliceDataFixtures\LoaderInterface;
-use Monolog\Registry;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Validator\ConstraintViolation;
 
-class CategoryTest extends KernelTestCase
+class CategoryTest extends KernelTestCase implements FixtureInterface
 {
+    use FixtureTrait;
+    use AssertHasErrorsTraits;
+
     /** @var LoaderInterface */
-    private $loader;
+    protected $loader;
 
     /** @var Registry */
-    private $doctrine;
-
-    public function setUp()
-    {
-        self::bootKernel();
-
-        $this->loader = self::$container->get('fidry_alice_data_fixtures.loader.doctrine');
-        $this->doctrine = self::$container->get('doctrine');
-    }
-
-    public function tearDown()
-    {
-        $purger = new DoctrineOrmPurger($this->doctrine->getManager());
-        $purger->purge();
-    }
+    protected $doctrine;
 
     public function getCategory(): Category
     {
@@ -39,60 +29,48 @@ class CategoryTest extends KernelTestCase
         return $category;
     }
 
-    public function loadFixture()
+    public function loadFixture(): void
     {
         $this->loader->load(
             ['tests/fixtures/categoryTest.yaml']
         );
     }
 
-    public function assertHasErrors(Category $category, int $number = 0)
-    {
-        self::bootKernel();
-        $errors = self::$container->get('validator')->validate($category);
-        $messages = [];
-        /** @var ConstraintViolation $error */
-        foreach ($errors as $error) {
-            $messages[] = $error->getPropertyPath() . ' => ' . $error->getMessage();
-        }
-        $this->assertCount($number, $errors, implode(', ', $messages));
-    }
-
-    public function testValidCategory()
+    public function testValidCategory(): void
     {
         $category = $this->getCategory();
         $this->assertHasErrors($category, 0);
         $this->assertInstanceOf(Category::class, $category);
-        $this->assertClassHasAttribute('name', Category::class );
+        $this->assertClassHasAttribute('name', Category::class);
         $this->assertIsString($category->getName());
-        $this->assertClassHasAttribute('slug', Category::class );
+        $this->assertClassHasAttribute('slug', Category::class);
         $this->assertIsString($category->getSlug());
     }
 
-    public function testBlankNameCategory()
+    public function testBlankNameCategory(): void
     {
         $category = $this->getCategory();
         $category->setName('');
         $this->assertHasErrors($category, 2);
     }
 
-    public function testBlankSlugCategory()
+    public function testBlankSlugCategory(): void
     {
         $category = $this->getCategory();
         $category->setSlug('');
         $this->assertHasErrors($category, 1);
     }
 
-    public function testLoadAFile()
+    public function testLoadAllCategory(): void
     {
         $this->loadFixture();
 
         $result = $this->doctrine->getRepository(Category::class)->findAll();
 
-        $this->assertEquals(1, count($result));
+        $this->assertEquals(1, \count($result));
     }
 
-    public function testReplicateCategory()
+    public function testReplicateCategory(): void
     {
         $this->loadFixture();
 
