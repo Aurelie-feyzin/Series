@@ -1,0 +1,6 @@
+App\Entity\Program:
+  programTest:
+    title: 'Test Title'
+    synopsis: '<text(255)>'
+    poster: '<imageUrl(640, 480, "cats")>'
+    category: '@categoryTest'

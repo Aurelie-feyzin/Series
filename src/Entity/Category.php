@@ -1,11 +1,13 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Entity;
 
-use Cocur\Slugify\Slugify;
+use App\Traits\SlugTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
@@ -13,7 +15,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Category
 {
+    use SlugTrait;
+
     /**
+     * @var int
+     *
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -21,6 +27,8 @@ class Category
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=75, unique=true)
      * @Assert\NotBlank
      * @Assert\Type("string")
@@ -28,11 +36,16 @@ class Category
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=75, unique=true)
-     * @Assert\NotBlank
-     * @Assert\Type("string")
+     * @var Collection<Program>
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="category")
      */
-    private $slug;
+    private $programs;
+
+    public function __construct()
+    {
+        $this->programs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -50,15 +63,29 @@ class Category
         $this->setSlug($name);
     }
 
-    public function getSlug(): ?string
+    /**
+     * @return Program[]
+     */
+    public function getPrograms(): array
     {
-        return $this->slug;
+        return $this->programs->toArray();
     }
 
-    public function setSlug(string $slug): self
+    public function addProgram(Program $program): self
     {
-        $slugify = new Slugify();
-        $this->slug = $slugify->slugify($slug);
+        if (!$this->programs->contains($program)) {
+            $this->programs[] = $program;
+            $program->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgram(Program $program): self
+    {
+        if ($this->programs->contains($program)) {
+            $this->programs->removeElement($program);
+        }
 
         return $this;
     }
