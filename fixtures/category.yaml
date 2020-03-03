@@ -1,4 +1,4 @@
 App\Entity\Category:
   category_{1..10}:
-    name: '<word()>'
+    name (unique): '<word()>'
 
