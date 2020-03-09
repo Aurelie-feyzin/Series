@@ -4,4 +4,5 @@ App\Entity\Program:
     synopsis: '<text(255)>'
     poster: '60%? <imageUrl(640, 480, "cats")>'
     year: '40%? <numberBetween(1890, 2500)>'
+    country: '30%? @country_*'
     category: '@category_*'

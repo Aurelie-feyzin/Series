@@ -24,12 +24,14 @@ class ProgramTest extends KernelTestCase implements FixtureInterface
     public function getProgram(): Program
     {
         $category = (new CategoryTest())->getCategory();
+        $country = (new CountryTest())->getCountry();
 
         $program = new Program();
         $program->setTitle('Test Title')
             ->setSynopsis('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla laoreet lobortis facilisis. Vestibulum eu sapien a quam ultricies dignissim.')
              ->setPoster('https://picsum.photos/200/300')
             ->setYear(1984)
+            ->setCountry($country)
             ->setCategory($category);
 
         return $program;
@@ -85,6 +87,11 @@ class ProgramTest extends KernelTestCase implements FixtureInterface
         $this->assertHasErrors($program, 1);
     }
 
+    public function testNullCountryProgram(): void
+    {
+        $program = $this->getProgram()->setCountry(null);
+        $this->assertHasErrors($program, 0);
+    }
     public function testLoadAllProgram(): void
     {
         $this->loadFixture();
