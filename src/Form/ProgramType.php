@@ -20,6 +20,7 @@ class ProgramType extends AbstractType
             ->add('poster')
             ->add('year')
             ->add('slug')
+            ->add('country')
             ->add('category');
     }
 

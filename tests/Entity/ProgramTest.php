@@ -29,7 +29,7 @@ class ProgramTest extends KernelTestCase implements FixtureInterface
         $program = new Program();
         $program->setTitle('Test Title')
             ->setSynopsis('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla laoreet lobortis facilisis. Vestibulum eu sapien a quam ultricies dignissim.')
-             ->setPoster('https://picsum.photos/200/300')
+            ->setPoster('https://picsum.photos/200/300')
             ->setYear(1984)
             ->setCountry($country)
             ->setCategory($category);
@@ -68,22 +68,19 @@ class ProgramTest extends KernelTestCase implements FixtureInterface
 
     public function testNullYearProgram(): void
     {
-        $program = $this->getProgram();
-        $program->setYear(null);
+        $program = $this->getProgram()->setYear(null);
         $this->assertHasErrors($program, 0);
     }
 
     public function testTooMinYearProgram(): void
     {
-        $program = $this->getProgram();
-        $program->setYear(188);
+        $program = $this->getProgram()->setYear(188);
         $this->assertHasErrors($program, 1);
     }
 
     public function testTooMaxYearProgram(): void
     {
-        $program = $this->getProgram();
-        $program->setYear(2501);
+        $program = $this->getProgram()->setYear(2501);
         $this->assertHasErrors($program, 1);
     }
 
@@ -92,6 +89,7 @@ class ProgramTest extends KernelTestCase implements FixtureInterface
         $program = $this->getProgram()->setCountry(null);
         $this->assertHasErrors($program, 0);
     }
+
     public function testLoadAllProgram(): void
     {
         $this->loadFixture();
