@@ -26,6 +26,7 @@ final class Version20200309154450 extends AbstractMigration
         $this->addSql('ALTER TABLE program ADD country_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE program ADD CONSTRAINT FK_92ED7784F92F3E70 FOREIGN KEY (country_id) REFERENCES country (id)');
         $this->addSql('CREATE INDEX IDX_92ED7784F92F3E70 ON program (country_id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_5373C9665E237E06 ON country (name)');
     }
 
     public function down(Schema $schema): void

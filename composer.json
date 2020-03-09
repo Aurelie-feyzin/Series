@@ -165,9 +165,10 @@
       "vendor/bin/php-cs-fixer fix --stop-on-violation"
     ],
     "test:phpcpd": [
-      "vendor/bin/phpcpd --fuzzy src tests"
+      "vendor/bin/phpcpd --fuzzy fixtures src tests"
     ],
     "test:phpmd": [
+      "vendor/bin/phpmd fixtures text phpmd-ruleset.xml --suffixes=php",
       "vendor/bin/phpmd src text phpmd-ruleset.xml --suffixes=php",
       "vendor/bin/phpmd tests text phpmd-ruleset.xml --suffixes=php"
     ],
@@ -177,6 +178,7 @@
     ],
     "test:phpstan-src": [
       "@php bin/console cache:warmup --env=dev",
+      "phpstan analyse -c phpstan.neon fixtures --level 7 --no-progress",
       "phpstan analyse -c phpstan.neon src --level 7 --no-progress"
     ],
     "test:phpstan-test": [

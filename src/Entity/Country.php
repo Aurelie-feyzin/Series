@@ -24,7 +24,7 @@ class Country
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, unique=true)
      * @Assert\NotBlank
      */
     private $name;
