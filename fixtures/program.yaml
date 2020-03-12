@@ -3,6 +3,6 @@ App\Entity\Program:
     title: '<sentence(5, true)>'
     synopsis: '<text(255)>'
     poster: '60%? <imageUrl(640, 480, "cats")>'
-    year: '40%? <numberBetween(1890, 2500)>'
+    year: '40%? <numberBetween(1890, 1990)>'
     country: '30%? @country_*'
     category: '@category_*'

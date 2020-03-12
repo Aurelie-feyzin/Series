@@ -1,0 +1,6 @@
+App\Entity\Season:
+  seasonTest:
+    program: '@programTest'
+    number: 1
+    year: '40%? <numberBetween(1890, 2500)>'
+    description: '<text(255)>'
