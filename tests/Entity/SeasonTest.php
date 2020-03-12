@@ -82,7 +82,10 @@ class SeasonTest extends KernelTestCase implements FixtureInterface
     public function loadFixture(): void
     {
         $this->loader->load(
-            ['tests/fixtures/categoryTest.yaml', 'tests/fixtures/programTest.yaml', 'tests/fixtures/seasonTest.yaml']
+            ['tests/fixtures/categoryTest.yaml',
+                'tests/fixtures/programTest.yaml',
+                'tests/fixtures/seasonTest.yaml',
+                'tests/fixtures/episodeTest.yaml', ]
         );
     }
 
@@ -125,7 +128,8 @@ class SeasonTest extends KernelTestCase implements FixtureInterface
     {
         $this->loadFixture();
 
-        $result = $this->doctrine->getRepository(Season::class)->findAll();
-        $this->assertEquals(1, \count($result));
+        $allSeasons = $this->doctrine->getRepository(Season::class)->findAll();
+        $this->assertEquals(1, \count($allSeasons));
+        $this->assertEquals(1, \count($allSeasons[0]->getEpisodes()));
     }
 }

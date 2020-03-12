@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ErrorException;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -65,6 +67,18 @@ class Season
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @var Episode[]|Collection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Episode", mappedBy="season")
+     */
+    private $episodes;
+
+    public function __construct()
+    {
+        $this->episodes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -130,6 +144,32 @@ class Season
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Episode[]
+     */
+    public function getEpisodes(): array
+    {
+        return $this->episodes->toArray();
+    }
+
+    public function addEpisode(Episode $title): self
+    {
+        if (!$this->episodes->contains($title)) {
+            $this->episodes[] = $title;
+        }
+
+        return $this;
+    }
+
+    public function removeEpisode(Episode $title): self
+    {
+        if ($this->episodes->contains($title)) {
+            $this->episodes->removeElement($title);
+        }
 
         return $this;
     }

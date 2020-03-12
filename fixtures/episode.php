@@ -1,15 +1,15 @@
 <?php declare(strict_types=1);
 
-$seasons = [];
-$nbFixtures = 30;
+$episodes = [];
+$nbFixtures = 300;
 for ($i = 1; $i <= $nbFixtures; ++$i) {
     $program = '$program_1';
-    $seasons['App\Entity\Season']['season_' . ($i + 1)] = [
-        'program'     => '@program_' . (($i % 10) + 1),
-        'number'      => (int) ($i / 5) + 1,
-        'year'        => '40%? <numberBetween(1990, 2021)>',
-        'description' => '60%? <text(255)>',
+    $episodes['App\Entity\Episode']['episode' . $i] = [
+        'season'   => '@season_' . (($i % 30) + 1),
+        'title'    => '<sentence(5, true)>',
+        'number'   => (int) ($i / 30) + 1,
+        'synopsis' => '60%? <text(255)>',
     ];
 }
 
-return $seasons;
+return $episodes;

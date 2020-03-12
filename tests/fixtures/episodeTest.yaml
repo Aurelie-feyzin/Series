@@ -1,0 +1,6 @@
+App\Entity\Episode:
+  episodeTest:
+    season: '@seasonTest'
+    title: 'episode_test'
+    number: 1
+    synopsis: '<text(255)>'
