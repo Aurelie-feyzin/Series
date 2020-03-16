@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Traits\SlugTrait;
+use App\Traits\TimeStampableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,10 +13,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProgramRepository")
  * @UniqueEntity("title")
+ * @ORM\HasLifecycleCallbacks
  */
 class Program
 {
     use SlugTrait;
+    use TimeStampableTrait;
 
     /**
      * @var int

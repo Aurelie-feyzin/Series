@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Traits\TimeStampableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,9 +18,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      errorPath="number",
  *      message="This number is already exist for this season"
  * )
+ *  @ORM\HasLifecycleCallbacks
  */
 class Episode
 {
+    use TimeStampableTrait;
+
     /**
      * @var int
      *
