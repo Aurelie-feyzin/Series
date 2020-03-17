@@ -24,4 +24,10 @@ class HomeControllerTest extends WebTestCase
         $this->getPage();
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
+
+    public function testFooterInHomepage(): void
+    {
+        $this->getPage();
+        $this->assertSelectorExists('footer');
+    }
 }
