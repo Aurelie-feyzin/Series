@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Program;
 use App\Form\ProgramType;
 use App\Repository\ProgramRepository;
@@ -55,6 +56,31 @@ class ProgramController extends AbstractController
     {
         return $this->render('program/show.html.twig', [
             'program' => $program,
+        ]);
+    }
+
+    /**
+     * Show all programs for one category.
+     *
+     * @Route("/category/{categorySlug}", name="program_by_category")
+     */
+    public function showProgramsByCategory(ProgramRepository $programRepository, ?string $categorySlug = null): Response
+    {
+        if (!$categorySlug) {
+            throw $this->createNotFoundException('No categorySlug has been sent to find a category in category\'s table.');
+        }
+        $category = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->findOneBy(['slug' => $categorySlug]);
+        if (!$category) {
+            throw $this->createNotFoundException('No category with ' . $categorySlug . ' slug, found in category\'s table.');
+        }
+
+        $programs = $programRepository->findBy(['category' => $category], ['updatedAt' => 'DESC']);
+
+        return $this->render('program/index.html.twig', [
+            'programs'     => $programs,
+            'categoryName' => $category->getName(),
         ]);
     }
 

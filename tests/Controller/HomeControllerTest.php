@@ -25,6 +25,12 @@ class HomeControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
+    public function testNavInHomepage(): void
+    {
+        $this->getPage();
+        $this->assertSelectorExists('nav');
+    }
+
     public function testFooterInHomepage(): void
     {
         $this->getPage();

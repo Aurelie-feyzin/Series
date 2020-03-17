@@ -19,6 +19,14 @@ body {
   background-attachment: fixed;
 }
 
+.dropdown-menu {
+  padding: 2px 5px;
+  background-color: #343A40;
+  a {
+    color: $secondary-text;
+  }
+}
+
 footer {
   background-color: #343A40;
   color: rgba(255, 255, 255, .5);

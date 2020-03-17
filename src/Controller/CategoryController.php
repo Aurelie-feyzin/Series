@@ -26,6 +26,16 @@ class CategoryController extends AbstractController
     }
 
     /**
+     * @Route("/category_navbar", name="category_navbar", methods={"GET"})
+     */
+    public function indexNavbar(CategoryRepository $categoryRepository): Response
+    {
+        return $this->render('category/_categories.html.twig', [
+           'categories' => $categoryRepository->findAll(),
+        ]);
+    }
+
+    /**
      * @Route("/new", name="category_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
