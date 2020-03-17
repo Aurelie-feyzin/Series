@@ -36,7 +36,7 @@ jobs:
       - name: Validate composer.json and composer.lock
         run: composer validate
 
-      - name: Install dependencies
+      - name: Install dependencies php
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run Migration
@@ -58,8 +58,12 @@ jobs:
       - name: Run Test security
         run: composer test:security
 
+      - name: Install dependencies js
+        run: yarn install
+
       - name: Run Test test
         run: |
+          yarn encore dev
           php bin/console doctrine:database:create --env=test
           php bin/console d:s:update --env=test --force
           composer test:test
