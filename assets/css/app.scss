@@ -1,2 +1,20 @@
 @import "~bootstrap/scss/bootstrap";
 
+$primary-color: #f65454;
+$primary-text: black;
+$secondary-text: white;
+$secondary-color: #242424;
+
+html {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-image: url(../../public/images/wild-865296_1920.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
