@@ -1,5 +1,5 @@
 App\Entity\Program:
-  program_{1..10}:
+  program_{1..25}:
     title: '<sentence(5, true)>'
     synopsis: '<text(255)>'
     poster: '60%? <imageUrl(640, 480, "cats")>'
