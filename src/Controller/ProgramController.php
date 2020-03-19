@@ -50,7 +50,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="program_show", methods={"GET"})
+     * @Route("/{slug}", name="program_show", methods={"GET"}, requirements={"slug"="[a-z0-9-]*"})
      */
     public function show(Program $program): Response
     {

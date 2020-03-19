@@ -12,7 +12,7 @@
                         <img class="card-img-top" alt="img {{ program.title }}" src="{{ program.poster?: asset('images/program/placeholder_program.jpg')  }}">
                     <div class="card-body">
                         <h5 class="card-title"><a
-                                    href="{{ path('program_show', {'id': program.id}) }}">{{ program.title }}</a>
+                                    href="{{ path('program_show', {'slug': program.slug}) }}">{{ program.title }}</a>
                         </h5>
                         <p class="card-text">{{ program.synopsis }}.</p>
                     </div>
