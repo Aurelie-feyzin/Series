@@ -1,42 +1,42 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Season{% endblock %}
+{% block title %}{{ season.program.title }}: {{ season.number }}{% endblock %}
 
 {% block main %}
-    <h1>Season</h1>
+    <div class="container-fluid">
+        <h1 class="mt-0 text-center"><a
+                    href="{{ path('program_show', {'slug': season.program.slug}) }}">{{ season.program.title }}</a>
+            saison n° {{ season.number }}</h1>
+        <div class="media media-bg">
+            <img class="align-self-center mr-3"
+                 src="{{ season.program.poster?: asset('images/program/placeholder_program.jpg') }}"
+                 alt="{{ season.program.title }} poster">
+            <div class="media-body pr-3">
+                <h2> Synopsis : </h2>
+                <p>{{ season.description ?: 'Pas de resumé pour cette saison pour l\'instant' }}</p>
+                <h2> Episodes : </h2>
+                {% for episode in season.episodes %}
+                    <div>
+                        <h3>{{ episode.number?  episode.number  ~ ' - ': '' }}{{ episode.title?? '' }} </h3>
+                        <p>{{ episode.synopsis?: 'pas de resumé pour l\'instant' }}</p>
+                    </div>
+                {% else %}
+                    Pas d'épisode pour l'instant.
+                {% endfor %}
+                <p>
+                {% if season.program.seasons|length > 2 %}
+                    autre saison :
+                    {% for p_season in season.program.seasons %}
+                        {% if p_season != season %}
+                            <a
+                            href="{{ path('season_show', {id: p_season.id}) }}">{{ p_season.number }}</a>{{ loop.last ? '.' : ',' }}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Pas de saison pour l'instant.
+                {% endif %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ season.id }}</td>
-            </tr>
-            <tr>
-                <th>Number</th>
-                <td>{{ season.number }}</td>
-            </tr>
-            <tr>
-                <th>Year</th>
-                <td>{{ season.year }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ season.description }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ season.createdAt ? season.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ season.updatedAt ? season.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('season_index') }}">back to list</a>
-
-    <a href="{{ path('season_edit', {'id': season.id}) }}">edit</a>
-
-    {{ include('season/_delete_form.html.twig') }}
+                <span class="float-right">dernière maj: {{ season.updatedAt | date('d/m/Y') }}</span></p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
