@@ -1,43 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Program index{% endblock %}
+{% block title %}Séries{% endblock %}
 
 {% block main %}
-    <h1>Program index</h1>
+    <h1 class="text-center">{% if categoryName %} {{ categoryName | title }} catégorie {% else %} Séries {% endif %}</h1>
+    <div class="container">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Synopsis</th>
-                <th>Poster</th>
-                <th>Year</th>
-                <th>Slug</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for program in programs %}
-            <tr>
-                <td>{{ program.id }}</td>
-                <td>{{ program.title }}</td>
-                <td>{{ program.synopsis }}</td>
-                <td>{{ program.poster }}</td>
-                <td>{{ program.year }}</td>
-                <td>{{ program.slug }}</td>
-                <td>
-                    <a href="{{ path('program_show', {'id': program.id}) }}">show</a>
-                    <a href="{{ path('program_edit', {'id': program.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="card-deck">
+            {% for program in programs %}
+                <div class="card bg-card">
+                        <img class="card-img-top" alt="img {{ program.title }}" src="{{ program.poster?: asset('images/program/placeholder_program.jpg')  }}">
+                    <div class="card-body">
+                        <h5 class="card-title"><a
+                                    href="{{ path('program_show', {'id': program.id}) }}">{{ program.title }}</a>
+                        </h5>
+                        <p class="card-text">{{ program.synopsis }}.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="badge badge-pill badge-primary">{{ program.seasons | length }} saisons</span>
+                        <span class="badge badge-pill badge-primary">{{ program.getNbEpisodes }} episodes</span>
+                        <span class="badge badge-pill badge-primary">{{ program.actors | length }} acteurs</span>
+                        <small class="text-muted float-right">maj: {{ program.updatedAt | date("d/m/Y") }}</small>
+                    </div>
+                </div>
+                <!-- Use modulo to add divs to handle break points -->
+                {% set sm = loop.index % 1 %}
+                {% set md = loop.index % 1 %}
+                {% set lg = loop.index % 2 %}
+                {% set xl = loop.index % 2 %}
 
-    <a href="{{ path('program_new') }}">Create new</a>
+                {% if sm == 0 %}
+                    <div class="w-100 d-none d-sm-block d-md-none mt-4"><!-- wrap every 2 on sm--></div>
+                {% endif %}
+
+                {% if md == 0 %}
+                    <div class="w-100 d-none d-md-block d-lg-none mt-4"><!-- wrap every 3 on md--></div>
+                {% endif %}
+
+                {% if lg == 0 %}
+                    <div class="w-100 d-none d-lg-block d-xl-none mt-4"><!-- wrap every 4 on lg--></div>
+                {% endif %}
+
+                {% if xl == 0 %}
+                    <div class="w-100 d-none d-xl-block mt-4"><!-- wrap every 5 on xl--></div>
+                {% endif %}
+
+            {% else %}
+                Desolé pas de série pour l'instant.
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

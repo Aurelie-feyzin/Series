@@ -189,6 +189,13 @@ class Program
         return $this;
     }
 
+    public function getNbEpisodes(): int
+    {
+        return array_reduce($this->getSeasons(), function (int $carry, Season $season) {
+            return $carry + \count($season->getEpisodes());
+        }, 0);
+    }
+
     public function removeSeason(Season $season): self
     {
         if ($this->seasons->contains($season)) {

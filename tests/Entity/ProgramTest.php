@@ -40,7 +40,10 @@ class ProgramTest extends KernelTestCase implements FixtureInterface
     public function loadFixture(): void
     {
         $this->loader->load(
-            ['tests/fixtures/categoryTest.yaml', 'tests/fixtures/programTest.yaml', 'tests/fixtures/seasonTest.yaml']
+            ['tests/fixtures/categoryTest.yaml',
+                'tests/fixtures/programTest.yaml',
+                'tests/fixtures/seasonTest.yaml',
+                'tests/fixtures/episodeTest.yaml', ]
         );
     }
 
@@ -88,6 +91,13 @@ class ProgramTest extends KernelTestCase implements FixtureInterface
     {
         $program = $this->getProgram()->setCountry(null);
         $this->assertHasErrors($program, 0);
+    }
+
+    public function testGetNbEpisodes(): void
+    {
+        $this->loadFixture();
+        $program = $this->doctrine->getRepository(Program::class)->findOneBy(['title' => 'Test Title']);
+        $this->assertEquals(1, $program->getNbEpisodes());
     }
 
     public function testLoadAllProgram(): void
