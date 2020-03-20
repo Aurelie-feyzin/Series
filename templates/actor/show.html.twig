@@ -1,38 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Actor{% endblock %}
+{% block title %}{{ actor.displayName }}{% endblock %}
 
 {% block main %}
-    <h1>Actor</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ actor.id }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ actor.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ actor.lastname }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ actor.createdAt ? actor.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ actor.updatedAt ? actor.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('actor_index') }}">back to list</a>
-
-    <a href="{{ path('actor_edit', {'id': actor.id}) }}">edit</a>
-
-    {{ include('actor/_delete_form.html.twig') }}
+    <div class="container-fluid">
+        <h1 class="mt-0 text-center">{{ actor.displayName | title }}</h1>
+        <div class="media media-bg">
+            <img class="align-self-center mr-3"
+                 src="{{ actor.poster?: asset('images/actor/placeholder_actor.png') }}"
+                 alt="{{ actor.poster? actor.displayName : 'placeholder actor' }} poster">
+            <div class="media-body pr-3">
+                <h2> Series : </h2>
+                {% for program in actor.programs %}
+                    <div>
+                        <h3><a
+                                    href="{{ path('program_show', {'slug': program.slug}) }}">{{ program.title }}</a></h3>
+                        <p>{{ program.synopsis?: 'pas de resumé pour l\'instant' }}</p>
+                    </div>
+                {% else %}
+                    Pas de série pour l'instant.
+                {% endfor %}
+                <p><span class="float-right">dernière maj: {{ actor.updatedAt | date('d/m/Y') }}</span></p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
