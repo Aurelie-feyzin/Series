@@ -1,41 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Actor index{% endblock %}
+{% block title %}Actor{% endblock %}
 
 {% block main %}
-    <h1>Actor index</h1>
+    <h1 class="text-center">Acteurs</h1>
+    <div class="container-fluid">
+        <div class="card-deck">
+            {% for actor in actors %}
+                <div class="card bg-card">
+                    <img class="card-img-top" alt="img {{ actor.displayName }}"
+                         src="{{ actor.poster?: asset('images/actor/placeholder_actor.png') }}">
+                    <div class="card-body">
+                        <h5 class="card-title"><a
+                                    href="{{ path('actor_show', {'slug': actor.slug}) }}">{{ actor.displayName }}</a>
+                        </h5>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted float-right">maj: {{ actor.updatedAt | date("d/m/Y") }}</small>
+                    </div>
+                </div>
+                <!-- Use modulo to add divs to handle break points -->
+                {% set sm = loop.index % 1 %}
+                {% set md = loop.index % 2 %}
+                {% set lg = loop.index % 2 %}
+                {% set xl = loop.index % 3 %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for actor in actors %}
-            <tr>
-                <td>{{ actor.id }}</td>
-                <td>{{ actor.firstname }}</td>
-                <td>{{ actor.lastname }}</td>
-                <td>{{ actor.createdAt ? actor.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ actor.updatedAt ? actor.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('actor_show', {'slug': actor.slug}) }}">show</a>
-                    <a href="{{ path('actor_edit', {'id': actor.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                {% if sm == 0 %}
+                    <div class="w-100 d-none d-sm-block d-md-none mt-4"></div>
+                {% endif %}
 
-    <a href="{{ path('actor_new') }}">Create new</a>
+                {% if md == 0 %}
+                    <div class="w-100 d-none d-md-block d-lg-none mt-4"></div>
+                {% endif %}
+
+                {% if lg == 0 %}
+                    <div class="w-100 d-none d-lg-block d-xl-none mt-4"></div>
+                {% endif %}
+
+                {% if xl == 0 %}
+                    <div class="w-100 d-none d-xl-block mt-4"></div>
+                {% endif %}
+
+            {% else %}
+                Desolé pas d'acteur pour l'instant.
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
