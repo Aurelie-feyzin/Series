@@ -1,5 +1,6 @@
 App\Entity\Actor:
   actorTest:
-    firstname: 'Prenom'
-    lastname: 'Nom'
+    __construct:
+      - 'Prenom'
+      - 'Nom'
     programs: ['@programTest']

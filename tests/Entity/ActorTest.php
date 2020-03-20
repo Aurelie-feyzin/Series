@@ -22,36 +22,14 @@ class ActorTest extends KernelTestCase implements FixtureInterface
     /** @var Registry */
     private $doctrine;
 
-    public function getPartialActor(): Actor
+    public function getActor(): Actor
     {
         $program = (new ProgramTest())->getProgram();
 
-        $actor = new Actor();
+        $actor = new Actor('Prenom', 'Nom');
         $actor->addProgram($program);
 
         return $actor;
-    }
-
-    public function setFirstnameActor(Actor $actor): Actor
-    {
-        $actor->setFirstname('Prenom');
-
-        return $actor;
-    }
-
-    public function setLastnameActor(Actor $actor): Actor
-    {
-        $actor->setLastname('Nom');
-
-        return $actor;
-    }
-
-    public function getActor(): Actor
-    {
-        $actor = $this->getPartialActor();
-        $actor = $this->setLastnameActor($actor);
-
-        return $this->setFirstnameActor($actor);
     }
 
     public function testValidActor(): void
@@ -60,20 +38,6 @@ class ActorTest extends KernelTestCase implements FixtureInterface
 
         $this->assertHasErrors($actor, 0);
         $this->assertInstanceOf(Actor::class, $actor);
-    }
-
-    public function testEmptyFirstname(): void
-    {
-        $actor = $this->getPartialActor();
-        $actor = $this->setLastnameActor($actor);
-        $this->assertHasErrors($actor, 1);
-    }
-
-    public function testEmptyLastname(): void
-    {
-        $actor = $this->getPartialActor();
-        $actor = $this->setFirstnameActor($actor);
-        $this->assertHasErrors($actor, 1);
     }
 
     public function loadFixture(): void

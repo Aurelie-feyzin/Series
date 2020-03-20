@@ -30,20 +30,20 @@ class ActorController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $actor = new Actor();
-        $form = $this->createForm(ActorType::class, $actor);
+        $form = $this->createForm(ActorType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($actor);
+            $actor = $request->request->all();
+            $entityManager->persist((object) $actor);
             $entityManager->flush();
 
             return $this->redirectToRoute('actor_index');
         }
 
         return $this->render('actor/new.html.twig', [
-            'actor' => $actor,
+            // 'actor' => $actor,
             'form'  => $form->createView(),
         ]);
     }

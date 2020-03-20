@@ -1,5 +1,6 @@
 App\Entity\Actor:
   actor_{1..50}:
-    firstname: '<firstName()>'
-    lastname: '<lastName()>'
+    __construct:
+      - '<firstname()>'
+      - '<lastname()>'
     programs: '<numberBetween(1, 10)>x @program*'

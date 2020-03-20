@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Traits\SlugTrait;
 use App\Traits\TimeStampableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -20,10 +21,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      errorPath="display name",
  *      message="This actor is already in database"
  * )
- *  @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks
  */
 class Actor
 {
+    use SlugTrait;
     use TimeStampableTrait;
 
     /**
@@ -58,9 +60,19 @@ class Actor
      */
     private $programs;
 
-    public function __construct()
+    /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $poster;
+
+    public function __construct(string $firstname, string $lastname)
     {
+        $this->setFirstname($firstname);
+        $this->setLastname($lastname);
+
         $this->programs = new ArrayCollection();
+        $this->setSlug($firstname . ' ' . $lastname);
     }
 
     public function getId(): ?int
@@ -114,6 +126,18 @@ class Actor
         if ($this->programs->contains($program)) {
             $this->programs->removeElement($program);
         }
+
+        return $this;
+    }
+
+    public function getPoster(): ?string
+    {
+        return $this->poster;
+    }
+
+    public function setPoster(?string $poster): self
+    {
+        $this->poster = $poster;
 
         return $this;
     }
