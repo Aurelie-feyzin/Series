@@ -4,7 +4,7 @@
 
 {% block main %}
     <h1 class="text-center">{% if categoryName %} {{ categoryName | title }} catégorie {% else %} Séries {% endif %}</h1>
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="card-deck">
             {% for program in programs %}
@@ -25,24 +25,24 @@
                 </div>
                 <!-- Use modulo to add divs to handle break points -->
                 {% set sm = loop.index % 1 %}
-                {% set md = loop.index % 1 %}
+                {% set md = loop.index % 2 %}
                 {% set lg = loop.index % 2 %}
-                {% set xl = loop.index % 2 %}
+                {% set xl = loop.index % 3 %}
 
                 {% if sm == 0 %}
-                    <div class="w-100 d-none d-sm-block d-md-none mt-4"><!-- wrap every 2 on sm--></div>
+                    <div class="w-100 d-none d-sm-block d-md-none mt-4"></div>
                 {% endif %}
 
                 {% if md == 0 %}
-                    <div class="w-100 d-none d-md-block d-lg-none mt-4"><!-- wrap every 3 on md--></div>
+                    <div class="w-100 d-none d-md-block d-lg-none mt-4"></div>
                 {% endif %}
 
                 {% if lg == 0 %}
-                    <div class="w-100 d-none d-lg-block d-xl-none mt-4"><!-- wrap every 4 on lg--></div>
+                    <div class="w-100 d-none d-lg-block d-xl-none mt-4"></div>
                 {% endif %}
 
                 {% if xl == 0 %}
-                    <div class="w-100 d-none d-xl-block mt-4"><!-- wrap every 5 on xl--></div>
+                    <div class="w-100 d-none d-xl-block mt-4"></div>
                 {% endif %}
 
             {% else %}
