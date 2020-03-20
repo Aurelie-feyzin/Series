@@ -22,7 +22,7 @@
             {% endfor %}
             <h2> Acteurs : </h2>
             {% for actor in program.actors %}
-                    <a href="{{ path('actor_show', {id: actor.id}) }}">{{ actor.displayName }}</a>{{ loop.last ? '.' : ',' }}
+                    <a href="{{ path('actor_show', {slug: actor.slug}) }}">{{ actor.displayName }}</a>{{ loop.last ? '.' : ',' }}
 
             {% else %}
                 Aucun acteur trouvé.

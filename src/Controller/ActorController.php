@@ -49,7 +49,7 @@ class ActorController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="actor_show", methods={"GET"})
+     * @Route("/{slug}", name="actor_show", methods={"GET"}, requirements={"slug"="[a-z0-9-]*"})
      */
     public function show(Actor $actor): Response
     {
@@ -74,7 +74,7 @@ class ActorController extends AbstractController
 
         return $this->render('actor/edit.html.twig', [
             'actor' => $actor,
-            'form'  => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
 
