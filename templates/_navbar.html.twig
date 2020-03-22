@@ -22,6 +22,7 @@
                 <a class="nav-link" href="#">Favoris</a>
             </li>
         </ul>
+
         {% if searchNavBar is defined %}
             {{ form_start(searchNavBar) }}
             <div class="input-group">
@@ -41,6 +42,13 @@
                 </div>
             </div>
             {{ form_end(searchNavBar) }}
+        {% endif %}
+
+        {% if app.user %}
+            {{ app.user.email }}
+            <a href="{{ path('app_logout') }}"> Se déconnecter</a>
+        {% else %}
+            <a href="{{ path('app_login') }}"> Se connecter</a>
         {% endif %}
     </div>
 </nav>
