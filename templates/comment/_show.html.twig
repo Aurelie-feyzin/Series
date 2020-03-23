@@ -1,0 +1,12 @@
+<h3>note:
+    {% include '_rate.html.twig' with {'value': comment.rate, 'valueMax': 5} %}
+    <span class="text-muted float-right"> écrit par {{ comment.author.email }} le {{ comment.updatedAt | date('d/m/Y') }}</span>
+</h3>
+<p>{{ comment.comment }}
+    {% if comment.author == app.user %}
+        <a href="{{ path('comment_edit', {'id': comment.id}) }}"
+           class="btn btn-primary active"
+           role="button" aria-pressed="true"><i
+                    class="far fa-comment-dots"></i></a>
+    {% endif %}
+</p>
