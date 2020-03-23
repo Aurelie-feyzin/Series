@@ -3,40 +3,39 @@
 {% block title %}Episode{% endblock %}
 
 {% block main %}
-    <h1>Episode</h1>
+    <div class="container-fluid">
+        <h1 class="mt-0 text-center">
+            <a href="{{ path('program_show', {'slug': episode.season.program.slug}) }}">{{ episode.season.program.title |title }}</a><br>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ episode.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ episode.title }}</td>
-            </tr>
-            <tr>
-                <th>Number</th>
-                <td>{{ episode.number }}</td>
-            </tr>
-            <tr>
-                <th>Synopsis</th>
-                <td>{{ episode.synopsis }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ episode.createdAt ? episode.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ episode.updatedAt ? episode.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('episode_index') }}">back to list</a>
-
-    <a href="{{ path('episode_edit', {'id': episode.id}) }}">edit</a>
-
-    {{ include('episode/_delete_form.html.twig') }}
+            <a href="{{ path('season_show', {'id': episode.season.id}) }}">Saison n° {{ episode.season.number }}</a>
+            <br>
+            épisode n°{{ episode.number }} {{ episode.title | title }}</h1>
+        <div class="media media-bg">
+            <img class="align-self-center mr-3"
+                 src="{{ episode.season.program.poster?: asset('images/program/placeholder_program.jpg') }}"
+                 alt="{{ episode.season.program.title }} poster">
+            <div class="media-body pr-3">
+                <h2> Synopsis : </h2>
+                <p>{{ episode.synopsis ?: 'Pas de resumé pour cet épisode l\'instant' }}</p>
+                <h2> Avis :
+                    {% if app.user and not userHasCommentEpisode %}
+                        <a href="{{ path('comment_new') }}" class="btn btn-primary active float-right" role="button"
+                           aria-pressed="true"><i
+                                    class="far fa-comment-dots"></i></a>
+                    {% endif %}
+                </h2>
+                {% for comment in episode.comments %}
+                    {% if comment.author == app.user %}
+                            {% include 'comment/_show.html.twig' with {'comment': comment } %}
+                    {% else %}
+                            {% include 'comment/_show.html.twig' with {'comment': comment } %}
+                    {% endif %}
+                {% else %}
+                    Pas de commentaire pour l'instant.
+                {% endfor %}
+                <div>
+                    <span class="float-right">dernière maj: {{ episode.updatedAt | date('d/m/Y') }}</span></div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

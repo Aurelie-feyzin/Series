@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Episode;
 use App\Form\EpisodeType;
 use App\Repository\EpisodeRepository;
@@ -53,8 +54,15 @@ class EpisodeController extends AbstractController
      */
     public function show(Episode $episode): Response
     {
+        $user = $this->getUser();
+
+        if ($user) {
+            $userCommentEpisode = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['author'=> $user, 'episode'=> $episode]);
+        }
+
         return $this->render('episode/show.html.twig', [
-            'episode' => $episode,
+            'episode'               => $episode,
+            'userHasCommentEpisode' => $userCommentEpisode ?? false,
         ]);
     }
 

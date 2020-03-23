@@ -16,26 +16,28 @@
                 <h2> Episodes : </h2>
                 {% for episode in season.episodes %}
                     <div>
-                        <h3>{{ episode.number?  episode.number  ~ ' - ': '' }}{{ episode.title?? '' }} </h3>
+                        <h3>
+                            <a href="{{ path('episode_show', {id: episode.id}) }}">{{ episode.number?  episode.number  ~ ' - ': '' }}{{ episode.title?? '' }}</a>
+                        </h3>
                         <p>{{ episode.synopsis?: 'pas de resumé pour l\'instant' }}</p>
                     </div>
                 {% else %}
                     Pas d'épisode pour l'instant.
                 {% endfor %}
                 <p>
-                {% if season.program.seasons|length > 2 %}
-                    autre saison :
-                    {% for p_season in season.program.seasons %}
-                        {% if p_season != season %}
-                            <a
-                            href="{{ path('season_show', {id: p_season.id}) }}">{{ p_season.number }}</a>{{ loop.last ? '.' : ',' }}
-                        {% endif %}
-                    {% endfor %}
-                {% else %}
-                    Pas de saison pour l'instant.
-                {% endif %}
+                    {% if season.program.seasons|length > 2 %}
+                        autre saison :
+                        {% for p_season in season.program.seasons %}
+                            {% if p_season != season %}
+                                <a
+                                href="{{ path('season_show', {id: p_season.id}) }}">{{ p_season.number }}</a>{{ loop.last ? '.' : ',' }}
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        Pas de saison pour l'instant.
+                    {% endif %}
 
-                <span class="float-right">dernière maj: {{ season.updatedAt | date('d/m/Y') }}</span></p>
+                    <span class="float-right">dernière maj: {{ season.updatedAt | date('d/m/Y') }}</span></p>
             </div>
         </div>
     </div>
