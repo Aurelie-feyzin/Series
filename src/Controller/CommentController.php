@@ -3,15 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Comment;
+use App\Entity\Episode;
+use App\Entity\User;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/comment")
+ * @Route("episode/{id}/comment")
  */
 class CommentController extends AbstractController
 {
@@ -28,9 +31,16 @@ class CommentController extends AbstractController
     /**
      * @Route("/new", name="comment_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Episode $episode): Response
     {
-        $comment = new Comment();
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!($user instanceof User)) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $comment = new Comment($episode, $user);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
@@ -49,7 +59,8 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="comment_show", methods={"GET"})
+     * @Route("/{comment_id}", name="comment_show", methods={"GET"})
+     * @ParamConverter("comment", options={"id" = "comment_id"})
      */
     public function show(Comment $comment): Response
     {
@@ -59,7 +70,8 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="comment_edit", methods={"GET","POST"})
+     * @Route("/{comment_id}/edit", name="comment_edit", methods={"GET","POST"})
+     * @ParamConverter("comment", options={"id" = "comment_id"})
      */
     public function edit(Request $request, Comment $comment): Response
     {
@@ -69,7 +81,7 @@ class CommentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('comment_index');
+            return $this->redirectToRoute('episode_show', ['id' => $comment->getEpisode()->getId()]);
         }
 
         return $this->render('comment/edit.html.twig', [
@@ -79,7 +91,8 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="comment_delete", methods={"DELETE"})
+     * @Route("/{comment_id}", name="comment_delete", methods={"DELETE"})
+     * @ParamConverter("comment", options={"id" = "comment_id"})
      */
     public function delete(Request $request, Comment $comment): Response
     {
@@ -89,6 +102,6 @@ class CommentController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('comment_index');
+        return $this->redirectToRoute('episode_show', ['id' => $comment->getEpisode()->getId()]);
     }
 }

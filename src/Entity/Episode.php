@@ -148,7 +148,6 @@ class Episode
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setEpisode($this);
         }
 
         return $this;
@@ -158,10 +157,6 @@ class Episode
     {
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
-            // set the owning side to null (unless already changed)
-            if ($comment->getEpisode() === $this) {
-                $comment->setEpisode(null);
-            }
         }
 
         return $this;

@@ -70,6 +70,15 @@ class Comment
      */
     private $rate;
 
+    /**
+     * Comment constructor.
+     */
+    public function __construct(Episode $episode, User $user)
+    {
+        $this->episode = $episode;
+        $this->author = $user;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,23 +89,9 @@ class Comment
         return $this->episode;
     }
 
-    public function setEpisode(?Episode $episode): self
-    {
-        $this->episode = $episode;
-
-        return $this;
-    }
-
     public function getAuthor(): ?User
     {
         return $this->author;
-    }
-
-    public function setAuthor(?User $author): self
-    {
-        $this->author = $author;
-
-        return $this;
     }
 
     public function getComment(): ?string

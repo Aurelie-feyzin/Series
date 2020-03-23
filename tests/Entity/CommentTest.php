@@ -26,8 +26,8 @@ class CommentTest extends KernelTestCase implements FixtureInterface
         $user = (new UserTest())->getUser();
         $episode = (new EpisodeTest())->getEpisode();
 
-        $comment = new Comment();
-        $comment->setAuthor($user)->setEpisode($episode)->setComment('Comment about episode')->setRate(2);
+        $comment = new Comment($episode, $user);
+        $comment->setComment('Comment about episode')->setRate(2);
 
         return $comment;
     }
