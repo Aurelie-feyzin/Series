@@ -2,11 +2,19 @@
     {% include '_rate.html.twig' with {'value': comment.rate, 'valueMax': 5} %}
     <span class="text-muted float-right"> écrit par {{ comment.author.email }} le {{ comment.updatedAt | date('d/m/Y') }}</span>
 </h3>
-<p>{{ comment.comment }}
+<div class="row">
+    {{ comment.comment }}
     {% if comment.author == app.user %}
+        <div class="d-flex flex-row-reverse">
+            <div class="p-2">
+                {{ include('comment/_delete_form.html.twig') }}
+            </div>
+            <div class="p-2">
                 <a href="{{ path('comment_edit', {'id': comment.episode.id, 'comment_id': comment.id}) }}"
                    class="btn btn-primary active"
                    role="button" aria-pressed="true"><i
                             class="far fa-comment-dots"></i></a>
+            </div>
+        </div>
     {% endif %}
-</p>
+</div>
