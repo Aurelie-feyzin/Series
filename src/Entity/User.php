@@ -133,11 +133,11 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Comment[]
+     * @return Comment[]
      */
-    public function getComments(): Collection
+    public function getComments(): array
     {
-        return $this->comments;
+        return $this->comments->toArray();
     }
 
     public function addComment(Comment $comment): self
