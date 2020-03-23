@@ -1,6 +1,0 @@
-App\Entity\Comment:
-  comment_{1..50}:
-    author: '@user_*'
-    episode: '@episode_*'
-    comment: '<text(255)>'
-    rate: '<numberBetween(0, 5)>'

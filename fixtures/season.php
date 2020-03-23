@@ -4,7 +4,6 @@ $seasons = [];
 $nbFixtures = 100;
 $nbPrograms = 25;
 for ($i = 1; $i <= $nbFixtures; ++$i) {
-    $program = '$program_1';
     $seasons['App\Entity\Season']['season_' . $i] = [
         'program'     => '@program_' . (($i % $nbPrograms) + 1),
         'number'      => (int) ($i / $nbPrograms) + 1,
