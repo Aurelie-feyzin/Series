@@ -2,14 +2,28 @@
 
 namespace App\Entity;
 
+use App\Traits\TimeStampableTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
+ * @ORM\Table(
+ *      name="comment",
+ *      uniqueConstraints={@ORM\UniqueConstraint(columns={"episode_id", "author_id"})}
+ * )
+ * @UniqueEntity(
+ *      fields={"episode","author"},
+ *      errorPath="episode",
+ *      message="You're alreday write a comment for this episode"
+ * )
+ * @ORM\HasLifecycleCallbacks
  */
 class Comment
 {
+    use TimeStampableTrait;
+
     /**
      * @var int
      *

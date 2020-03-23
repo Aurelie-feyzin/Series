@@ -25,6 +25,8 @@ final class Version20200322155341 extends AbstractMigration
         $this->addSql('CREATE TABLE comment (id INT AUTO_INCREMENT NOT NULL, episode_id INT NOT NULL, author_id INT NOT NULL, comment LONGTEXT NOT NULL, rate SMALLINT UNSIGNED NOT NULL, INDEX IDX_9474526C362B62A0 (episode_id), INDEX IDX_9474526CF675F31B (author_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526C362B62A0 FOREIGN KEY (episode_id) REFERENCES episode (id)');
         $this->addSql('ALTER TABLE comment ADD CONSTRAINT FK_9474526CF675F31B FOREIGN KEY (author_id) REFERENCES user (id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_9474526C362B62A0F675F31B ON comment (episode_id, author_id)');
+        $this->addSql('ALTER TABLE comment ADD created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', ADD updated_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\'');
     }
 
     public function down(Schema $schema): void
