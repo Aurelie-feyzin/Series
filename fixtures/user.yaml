@@ -4,10 +4,15 @@ parameters:
 App\Entity\User:
   user:
     email: 'user@email.fr'
-    roles: []
+    roles: ['ROLE_SUBSCRIBER']
+    password: <{hash}>
+
+  admin:
+    email: 'admin@email.fr'
+    roles: ['ROLE_ADMIN']
     password: <{hash}>
 
   user_{1..25}:
     email: '<email()>'
-    roles: []
+    roles: ['ROLE_SUBSCRIBER']
     password: <{hash}>
