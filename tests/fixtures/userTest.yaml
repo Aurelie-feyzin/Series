@@ -1,0 +1,13 @@
+parameters:
+  hash: $argon2id$v=19$m=65536,t=4,p=1$LauMuQM+B/Hc4usUFbHHlw$V8hbm04px2Hg+ZQLmR5MBA2ugehDXw/4BJQFR2J3dgY
+
+App\Entity\User:
+  user_subscriber:
+    email: 'user@email.fr'
+    roles: ['ROLE_SUBSCRIBER']
+    password: <{hash}>
+
+  user_admin:
+    email: 'admin@email.fr'
+    roles: ['ROLE_ADMIN']
+    password: <{hash}

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Actor;
 use App\Form\ActorType;
 use App\Repository\ActorRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +28,7 @@ class ActorController extends AbstractController
 
     /**
      * @Route("/new", name="actor_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function new(Request $request): Response
     {
@@ -59,7 +61,8 @@ class ActorController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="actor_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="actor_edit", methods={"GET","POST"}, requirements={"slug"="[a-z0-9-]*"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Actor $actor): Response
     {
@@ -79,7 +82,8 @@ class ActorController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="actor_delete", methods={"DELETE"})
+     * @Route("/{slug}", name="actor_delete", methods={"DELETE"}, requirements={"slug"="[a-z0-9-]*"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Actor $actor): Response
     {
