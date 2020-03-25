@@ -75,7 +75,7 @@ class Season
     /**
      * @var Episode[]|Collection
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Episode", mappedBy="season")
+     * @ORM\OneToMany(targetEntity="App\Entity\Episode", mappedBy="season", orphanRemoval=true)
      */
     private $episodes;
 

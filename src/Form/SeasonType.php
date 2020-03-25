@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Program;
 use App\Entity\Season;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,7 +22,12 @@ class SeasonType extends AbstractType
             ->add('description')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('program');
+            ->add('program', EntityType::class, [
+                'class'        => Program::class,
+                'choice_label' => 'title',
+                'expanded'     => false,
+                'multiple'     => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

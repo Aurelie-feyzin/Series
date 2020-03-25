@@ -30,7 +30,7 @@
                         {% for p_season in season.program.seasons %}
                             {% if p_season != season %}
                                 <a
-                                href="{{ path('season_show', {id: p_season.id}) }}">{{ p_season.number }}</a>{{ loop.last ? '.' : ',' }}
+                                href="{{ path('season_show', {programSlug: season.program.slug, number: p_season.number}) }}">{{ p_season.number }}</a>{{ loop.last ? '.' : ',' }}
                             {% endif %}
                         {% endfor %}
                     {% else %}

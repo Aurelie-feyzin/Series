@@ -12,7 +12,7 @@
             <h2> Saisons : </h2>
             {% for season in program.seasons %}
                 <div>
-                    <h3><a href="{{ path('season_show', {id: season.id}) }}">Saison n°{{ season.number }}</a>
+                    <h3><a href="{{ path('season_show', {programSlug: program.slug, number: season.number}) }}">Saison n°{{ season.number }}</a>
                         <span class="text-muted small">({{ season.episodes | length }} épisodes{{ season.year? ' - ' ~ season.year: ''}})</span>
                         </h3>
                     <p>{{ season.description?: 'pas de description pour l\'instant' }}</p>
