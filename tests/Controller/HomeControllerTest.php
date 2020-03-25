@@ -2,39 +2,41 @@
 
 namespace App\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use App\Tests\Traits\PageWithOrWithoutLogin;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 class HomeControllerTest extends WebTestCase
 {
-    /**
-     * @var KernelBrowser
-     */
-    public $client;
-
-    public function getPage(): void
-    {
-        self::ensureKernelShutdown();
-        $this->client = static::createClient();
-        $this->client->request('GET', '/');
-    }
+    use PageWithOrWithoutLogin;
 
     public function testHomePage(): void
     {
-        $this->getPage();
+        $this->getPageWithoutUser('/');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+    }
+
+    public function loadFixture(): void
+    {
+        $this->loader->load(
+            ['tests/fixtures/categoryTest.yaml',
+            ]
+        );
     }
 
     public function testNavInHomepage(): void
     {
-        $this->getPage();
+        $this->getPageWithoutUser('/');
         $this->assertSelectorExists('nav');
+        $this->assertSelectorExists('ul');
+        $this->assertSelectorExists('li');
+        $this->assertSelectorExists('.dropdown-menu');
+        // TODO ajouter un test pour vérifier que la liste des categories existe bien
     }
 
     public function testFooterInHomepage(): void
     {
-        $this->getPage();
+        $this->getPageWithoutUser('/');
         $this->assertSelectorExists('footer');
     }
 }
