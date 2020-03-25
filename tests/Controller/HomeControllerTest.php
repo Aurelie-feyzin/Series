@@ -15,6 +15,7 @@ class HomeControllerTest extends WebTestCase
 
     public function getPage(): void
     {
+        self::ensureKernelShutdown();
         $this->client = static::createClient();
         $this->client->request('GET', '/');
     }

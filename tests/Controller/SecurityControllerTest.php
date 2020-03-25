@@ -2,24 +2,24 @@
 
 namespace App\Tests\Controller;
 
-use App\Tests\Traits\NeedLogin;
+use App\Tests\Traits\PageWithOrWithoutLogin;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 class SecurityControllerTest extends WebTestCase
 {
-    use NeedLogin;
+    use PageWithOrWithoutLogin;
 
     public function testDisplayLogin(): void
     {
-        $client = static::createClient();
-        $client->request('GET', '/login');
+        $this->getPageWithoutUser('/login');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertSelectorNotExists('.alert.alert-danger');
     }
 
     public function testBadCredentials(): void
     {
+        self::ensureKernelShutdown();
         $client = static::createClient();
         $crawler = $client->request('GET', '/login');
         $form = $crawler->selectButton('Connexion')->form([
@@ -32,8 +32,17 @@ class SecurityControllerTest extends WebTestCase
         $this->assertSelectorExists('.alert.alert-danger');
     }
 
+    public function loadFixture(): void
+    {
+        $this->loader->load(
+            ['tests/fixtures/userTest.yaml',
+            ]
+        );
+    }
+
     public function testSuccessfullLogin(): void
     {
+        self::ensureKernelShutdown();
         $client = static::createClient();
         $this->loadFixture();
         $crawler = $client->request('GET', '/login');

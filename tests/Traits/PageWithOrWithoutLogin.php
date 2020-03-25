@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-trait NeedLogin
+trait PageWithOrWithoutLogin
 {
     use FixtureTrait;
 
@@ -30,25 +30,32 @@ trait NeedLogin
         $client->getCookieJar()->set($cookie);
     }
 
-    public function loadFixture(): void
-    {
-        $this->loader->load(
-            ['tests/fixtures/userTest.yaml',
-            ]
-        );
-    }
 
     public function getUserSubscriber(): User
     {
         $this->loadFixture();
-
         return $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
     }
 
     public function getUserAdmin(): User
     {
         $this->loadFixture();
-
         return $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'admin@email.fr']);
+    }
+
+    public function getPageWithoutUser( string $uri, string $method = 'GET'): void
+    {
+        $this->loadFixture();
+        self::ensureKernelShutdown();
+        $client = static::createClient();
+        $client->request($method, $uri);
+    }
+
+    public function getPageWithUser(User $user, string $uri, string $method = 'GET'): void
+    {
+        self::ensureKernelShutdown();
+        $client = static::createClient();
+        $this->login($client, $user);
+        $client->request($method, $uri);
     }
 }
