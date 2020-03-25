@@ -5,31 +5,22 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Episode;
 use App\Form\EpisodeType;
-use App\Repository\EpisodeRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/episode")
+ * @Route("program/{programSlug}/season/{seasonNumber}/episode")
  */
 class EpisodeController extends AbstractController
 {
     /**
-     * @Route("/", name="episode_index", methods={"GET"})
-     */
-    public function index(EpisodeRepository $episodeRepository): Response
-    {
-        return $this->render('episode/index.html.twig', [
-            'episodes' => $episodeRepository->findAll(),
-        ]);
-    }
-
-    /**
      * @Route("/new", name="episode_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, string $programSlug, int $seasonNumber): Response
     {
         $episode = new Episode();
         $form = $this->createForm(EpisodeType::class, $episode);
@@ -44,13 +35,15 @@ class EpisodeController extends AbstractController
         }
 
         return $this->render('episode/new.html.twig', [
-            'episode' => $episode,
-            'form'    => $form->createView(),
+            'programSlug'  => $programSlug,
+            'seasonNumber' => $seasonNumber,
+            'episode'      => $episode,
+            'form'         => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="episode_show", methods={"GET"})
+     * @Route("/{number}", name="episode_show", methods={"GET"})
      */
     public function show(Episode $episode): Response
     {
@@ -67,7 +60,8 @@ class EpisodeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="episode_edit", methods={"GET","POST"})
+     * @Route("/{number}/edit", name="episode_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Episode $episode): Response
     {
@@ -87,7 +81,8 @@ class EpisodeController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="episode_delete", methods={"DELETE"})
+     * @Route("/{number}", name="episode_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Episode $episode): Response
     {
@@ -97,6 +92,6 @@ class EpisodeController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('episode_index');
+        return $this->redirectToRoute('season_show', ['programSlug' => $episode->getSeason()->getProgram()->getSlug(), 'number' =>$episode->getSeason()->getNumber()]);
     }
 }
