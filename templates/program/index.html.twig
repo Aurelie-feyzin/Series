@@ -3,7 +3,7 @@
 {% block title %}Séries{% endblock %}
 
 {% block main %}
-    <h1 class="text-center">{% if categoryName %} {{ categoryName | title }} catégorie {% else %} Séries {% endif %}</h1>
+    <h1 class="text-center">{% if categoryName is defined %} {{ categoryName | title }} catégorie {% else %} Séries {% endif %}</h1>
     <div class="container-fluid">
 
         <div class="card-deck">
