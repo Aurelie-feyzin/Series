@@ -1,5 +1,5 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
 <button class="btn btn-primary">{{ button_label|default('Sauvegarder') }}</button>
-<a class='btn btn-primary' href="{{ path('episode_show', {'id': comment.episode.id}) }}">Retourner à l'épisode</a>
+<a class='btn btn-primary' href="{{ path('episode_show', {'programSlug': comment.episode.season.program.slug, 'seasonNumber': comment.episode.season.number, 'number': comment.episode.number}) }}">Retourner à l'épisode</a>
 {{ form_end(form) }}

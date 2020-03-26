@@ -19,7 +19,7 @@
                 <p>{{ episode.synopsis ?: 'Pas de resumé pour cet épisode l\'instant' }}</p>
                 <h2> Avis :
                     {% if app.user and not userHasCommentEpisode %}
-                        <a href="{{ path('comment_new', {'id': episode.id}) }}" class="btn btn-primary active float-right" role="button"
+                        <a href="{{ path('comment_new', {'programSlug': episode.season.program.slug, 'seasonNumber': episode.season.number, 'episodeNumber': episode.number}) }}" class="btn btn-primary active float-right" role="button"
                            aria-pressed="true"><i
                                     class="far fa-comment-dots"></i></a>
                     {% endif %}

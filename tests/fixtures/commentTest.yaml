@@ -1,0 +1,7 @@
+App\Entity\Comment:
+  commandTest:
+    __construct:
+      - '@episodeTest'
+      - '@user_author'
+    comment: '<text(255)>'
+    rate: 3

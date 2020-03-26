@@ -9,8 +9,8 @@
             <div class="p-2">
                 {{ include('comment/_delete_form.html.twig') }}
             </div>
-            <div class="p-2">
-                <a href="{{ path('comment_edit', {'id': comment.episode.id, 'comment_id': comment.id}) }}"
+          <div class="p-2">
+                <a href="{{ path('comment_edit', {'programSlug': comment.episode.season.program.slug, 'seasonNumber': comment.episode.season.number, 'episodeNumber': comment.episode.number, 'comment_id': comment.id}) }}"
                    class="btn btn-primary active"
                    role="button" aria-pressed="true"><i
                             class="far fa-comment-dots"></i></a>

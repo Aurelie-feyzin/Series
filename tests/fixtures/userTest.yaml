@@ -7,6 +7,11 @@ App\Entity\User:
     roles: ['ROLE_SUBSCRIBER']
     password: <{hash}>
 
+  user_author:
+    email: 'author@email.fr'
+    roles: ['ROLE_SUBSCRIBER']
+    password: <{hash}>
+
   user_admin:
     email: 'admin@email.fr'
     roles: ['ROLE_ADMIN']
