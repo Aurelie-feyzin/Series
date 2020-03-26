@@ -33,12 +33,14 @@ class EpisodeControllerTest extends WebTestCase
 
     public function testPageEpisodeNewWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), self::PARTIAL_URL . '/new');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageEpisodeNewWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), self::PARTIAL_URL . '/new');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -57,12 +59,14 @@ class EpisodeControllerTest extends WebTestCase
 
     public function testPageEpisodeEditWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), self::PARTIAL_URL . '/1/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageEpisodeEditWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), self::PARTIAL_URL . '/1/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -75,12 +79,14 @@ class EpisodeControllerTest extends WebTestCase
 
     public function testPageEpisodeDeleteWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), self::PARTIAL_URL . '/1', 'DELETE');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testEpisodeDeleteWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), self::PARTIAL_URL . '/1', 'DELETE');
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }

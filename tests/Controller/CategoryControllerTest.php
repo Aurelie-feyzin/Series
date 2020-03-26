@@ -27,12 +27,14 @@ class CategoryControllerTest extends WebTestCase
 
     public function testPageCategoryIndexWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/category/');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageCategoryIndexWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/category/');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -45,12 +47,14 @@ class CategoryControllerTest extends WebTestCase
 
     public function testPageCategoryNewWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/category/new');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageCategoryNewWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/category/new');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -63,12 +67,14 @@ class CategoryControllerTest extends WebTestCase
 
     public function testPageCategoryShowWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/category/test');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageCategoryShowWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/category/test');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -81,12 +87,14 @@ class CategoryControllerTest extends WebTestCase
 
     public function testPageCategoryEditWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/category/test/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageCategoryEditWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/category/test/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -99,12 +107,14 @@ class CategoryControllerTest extends WebTestCase
 
     public function testPageCategoryDeleteWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/category/test', 'DELETE');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageCategoryDeleteWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/category/test', 'DELETE');
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }

@@ -32,15 +32,11 @@ trait PageWithOrWithoutLogin
 
     public function getUserSubscriber(): User
     {
-        $this->loadFixture();
-
         return $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
     }
 
     public function getUserAdmin(): User
     {
-        $this->loadFixture();
-
         return $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'admin@email.fr']);
     }
 

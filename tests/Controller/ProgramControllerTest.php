@@ -34,12 +34,14 @@ class ProgramControllerTest extends WebTestCase
 
     public function testPageProgramNewWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/program/new');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageProgramNewWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/program/new');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -64,12 +66,14 @@ class ProgramControllerTest extends WebTestCase
 
     public function testPageProgramEditWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/program/test-title/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageProgramEditWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/program/test-title/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -82,12 +86,14 @@ class ProgramControllerTest extends WebTestCase
 
     public function testPageProgramDeleteWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/program/test-title', 'DELETE');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageProgramDeleteWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/program/test-title', 'DELETE');
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }

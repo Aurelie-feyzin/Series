@@ -35,12 +35,14 @@ class ActorControllerTest extends WebTestCase
 
     public function testPageActorNewWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/actor/new');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageActorNewWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/actor/new');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -59,12 +61,14 @@ class ActorControllerTest extends WebTestCase
 
     public function testPageActorEditWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/actor/prenom-nom/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageActorEditWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/actor/prenom-nom/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -77,12 +81,14 @@ class ActorControllerTest extends WebTestCase
 
     public function testPageActorDeletetWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/actor/prenom-nom', 'DELETE');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageActorDeleteWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/actor/prenom-nom', 'DELETE');
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }

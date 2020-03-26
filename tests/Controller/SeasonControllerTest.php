@@ -30,12 +30,14 @@ class SeasonControllerTest extends WebTestCase
 
     public function testPageSeasonNewWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/program/test-title/season/new');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageSeasonNewWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/program/test-title/season/new');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -54,12 +56,14 @@ class SeasonControllerTest extends WebTestCase
 
     public function testPageSeasonEditWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/program/test-title/season/1/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageSeasonEditWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/program/test-title/season/1/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -72,12 +76,14 @@ class SeasonControllerTest extends WebTestCase
 
     public function testPageSeasonDeleteWithUserSubscriber(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserSubscriber(), '/program/test-title/season/1', 'DELETE');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testSeasonProgramDeleteWithUserAdmin(): void
     {
+        $this->loadFixture();
         $this->getPageWithUser($this->getUserAdmin(), '/program/test-title/season/1', 'DELETE');
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
