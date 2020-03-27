@@ -27,6 +27,7 @@ class EpisodeControllerTest extends WebTestCase
 
     public function testPageEpisodeNew(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser(self::PARTIAL_URL . '/new');
         $this->assertResponseRedirects('/login');
     }
@@ -47,12 +48,14 @@ class EpisodeControllerTest extends WebTestCase
 
     public function testPageEpisodeShow(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser(self::PARTIAL_URL . '/1');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testPageEpisodeEdit(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser(self::PARTIAL_URL . '/1/edit');
         $this->assertResponseRedirects('/login');
     }
@@ -73,6 +76,7 @@ class EpisodeControllerTest extends WebTestCase
 
     public function testPageEpisodeDelete(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser(self::PARTIAL_URL . '/1', 'DELETE');
         $this->assertResponseRedirects('/login');
     }

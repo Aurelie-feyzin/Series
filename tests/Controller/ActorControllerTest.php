@@ -12,12 +12,14 @@ class ActorControllerTest extends WebTestCase
 
     public function testPageActorIndex(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/actor/');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testPageActorNew(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/actor/new');
         $this->assertResponseRedirects('/login');
     }
@@ -49,12 +51,14 @@ class ActorControllerTest extends WebTestCase
 
     public function testPageActorShow(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/actor/prenom-nom');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testPageActorEdit(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/actor/prenom-nom/edit');
         $this->assertResponseRedirects('/login');
     }
@@ -75,6 +79,7 @@ class ActorControllerTest extends WebTestCase
 
     public function testPageActorDelete(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/actor/prenom-nom', 'DELETE');
         $this->assertResponseRedirects('/login');
     }

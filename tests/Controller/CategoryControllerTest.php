@@ -12,6 +12,7 @@ class CategoryControllerTest extends WebTestCase
 
     public function testPageCategoryIndex(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/category/');
         $this->assertResponseRedirects('/login');
     }
@@ -41,6 +42,7 @@ class CategoryControllerTest extends WebTestCase
 
     public function testPageCategoryNew(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/category/new');
         $this->assertResponseRedirects('/login');
     }
@@ -61,6 +63,7 @@ class CategoryControllerTest extends WebTestCase
 
     public function testPageCategoryShow(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/category/test');
         $this->assertResponseRedirects('/login');
     }
@@ -81,6 +84,7 @@ class CategoryControllerTest extends WebTestCase
 
     public function testPageCategoryEdit(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/category/test/edit');
         $this->assertResponseRedirects('/login');
     }
@@ -101,6 +105,7 @@ class CategoryControllerTest extends WebTestCase
 
     public function testPageCategoryDelete(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/category/test', 'DELETE');
         $this->assertResponseRedirects('/login');
     }

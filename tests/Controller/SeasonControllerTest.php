@@ -24,6 +24,7 @@ class SeasonControllerTest extends WebTestCase
 
     public function testPageSeasonNew(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/program/test-title/season/new');
         $this->assertResponseRedirects('/login');
     }
@@ -44,12 +45,14 @@ class SeasonControllerTest extends WebTestCase
 
     public function testPageSeasonShow(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/program/test-title/season/1');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testPageSeasonEdit(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/program/test-title/season/1/edit');
         $this->assertResponseRedirects('/login');
     }
@@ -70,6 +73,7 @@ class SeasonControllerTest extends WebTestCase
 
     public function testPageSeasonDelete(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/program/test-title/season/1', 'DELETE');
         $this->assertResponseRedirects('/login');
     }

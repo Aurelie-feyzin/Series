@@ -12,6 +12,7 @@ class ProgramControllerTest extends WebTestCase
 
     public function testPageProgramIndex(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/program/');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
@@ -28,6 +29,7 @@ class ProgramControllerTest extends WebTestCase
 
     public function testPageProgramNew(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/program/new');
         $this->assertResponseRedirects('/login');
     }
@@ -48,18 +50,21 @@ class ProgramControllerTest extends WebTestCase
 
     public function testPageProgramShow(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/program/test-title');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testPageProgramShowByCategory(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('program/category/test');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testPageProgramyEdit(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/program/test-title/edit');
         $this->assertResponseRedirects('/login');
     }
@@ -80,6 +85,7 @@ class ProgramControllerTest extends WebTestCase
 
     public function testPageProgramDelete(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser('/program/test-title', 'DELETE');
         $this->assertResponseRedirects('/login');
     }

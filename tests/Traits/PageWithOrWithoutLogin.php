@@ -42,7 +42,6 @@ trait PageWithOrWithoutLogin
 
     public function getPageWithoutUser(string $uri, string $method = 'GET'): void
     {
-        $this->loadFixture();
         self::ensureKernelShutdown();
         $client = static::createClient();
         $client->request($method, $uri);

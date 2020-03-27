@@ -28,6 +28,7 @@ class CommentControllerTest extends WebTestCase
 
     public function testPageCommentNew(): void
     {
+        $this->loadFixture();
         $this->getPageWithoutUser(self::PARTIAL_URL . '/new');
         $this->assertResponseRedirects('/login');
     }
@@ -50,7 +51,7 @@ class CommentControllerTest extends WebTestCase
     {
         $this->loadFixture();
         $comment = $this->doctrine->getRepository(Comment::class)->findOneBy(['rate' => 3]);
-        $this->getPageWithoutUser(self::PARTIAL_URL . '/' . ($comment->getId() + 1) . '/edit');
+        $this->getPageWithoutUser(self::PARTIAL_URL . '/' . $comment->getId() . '/edit');
         $this->assertResponseRedirects('/login');
     }
 
@@ -82,7 +83,7 @@ class CommentControllerTest extends WebTestCase
     {
         $this->loadFixture();
         $comment = $this->doctrine->getRepository(Comment::class)->findOneBy(['rate' => 3]);
-        $this->getPageWithoutUser(self::PARTIAL_URL . '/' . ($comment->getId() + 1), 'DELETE');
+        $this->getPageWithoutUser(self::PARTIAL_URL . '/' . $comment->getId(), 'DELETE');
         $this->assertResponseRedirects('/login');
     }
 
