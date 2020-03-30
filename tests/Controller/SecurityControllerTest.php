@@ -101,4 +101,78 @@ class SecurityControllerTest extends WebTestCase
         $client->submit($form);
         $this->assertSelectorExists('.form-error-message');
     }
+
+    public function testSuccesfullResetPassword(): void
+    {
+        self::ensureKernelShutdown();
+        $client = static::createClient();
+        $this->loadFixture();
+        $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
+        $this->login($client, $user);
+        $crawler = $client->request('GET', '/reset_password');
+        $form = $crawler->selectButton('Modifier mot de passe')->form([
+            'reset_password[oldPassword]'         => 'password',
+            'reset_password[newPassword]'         => 'newpassword',
+        ]);
+        $client->submit($form);
+        $this->assertResponseRedirects('/user/' . $user->getId());
+    }
+
+    public function testBadOldPasswordResetPassword(): void
+    {
+        self::ensureKernelShutdown();
+        $client = static::createClient();
+        $this->loadFixture();
+        $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
+        $this->login($client, $user);
+        $crawler = $client->request('GET', '/reset_password');
+        $form = $crawler->selectButton('Modifier mot de passe')->form([
+            'reset_password[oldPassword]'         => 'badpassword',
+            'reset_password[newPassword]'         => 'newpassword',
+        ]);
+        $client->submit($form);
+        $this->assertSelectorExists('.form-error-message');
+    }
+
+    public function testDeleteAccount(): void
+    {
+        $this->loadFixture();
+        $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
+        $this->getPageWithoutUser('/user/' . $user->getId(), 'DELETE');
+        $this->assertResponseRedirects('/login');
+    }
+
+    public function testDeleteAccountSubscriber(): void
+    {
+        $this->loadFixture();
+        $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
+        $this->getPageWithUser($user, '/user/' . $user->getId(), 'DELETE');
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+    }
+
+    public function testDeleteAccountAdmin(): void
+    {
+        $this->loadFixture();
+        $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'admin@email.fr']);
+        $this->getPageWithUser($user, '/user/' . $user->getId(), 'DELETE');
+        $this->assertResponseRedirects('/user/' . $user->getId());
+    }
+
+    public function testDeleteAccountSubscriberWithLoginSubscriber(): void
+    {
+        $this->loadFixture();
+        $userLog = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
+        $userNotLog = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'author@email.fr']);
+        $this->getPageWithUser($userLog, '/user/' . $userNotLog->getId(), 'DELETE');
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND, 'user/' . $userLog->getId());
+    }
+
+    public function testDeleteAccountSubscriberWithLoginAdmin(): void
+    {
+        $this->loadFixture();
+        $admin = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'admin@email.fr']);
+        $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'author@email.fr']);
+        $this->getPageWithUser($admin, '/user/' . $user->getId(), 'DELETE');
+        $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
+    }
 }
