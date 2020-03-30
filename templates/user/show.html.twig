@@ -6,5 +6,59 @@
     <div class="container">
         <h1 class="mt-0 text-center">Mon compte: {{ user.email }}</h1>
 
+        <div class="card bg-card">
+            <div class="card-body">
+                <h2 class="card-title">Mes favoris</h2>
+            </div>
+        </div>
+        <div class="card bg-card">
+            <div class="card-body">
+                <h2 class="card-title">Mes Notes</h2>
+                {% if comments %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Série - Saison -Episode</th>
+                            <th scope="col">Note</th>
+                            <th scope="col">Modifier</th>
+                            <th scope="col">Supprimer</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for comment in comments %}
+                            <tr>
+                                <td>
+                                    <a href="{{ path('episode_show', {'programSlug':comment.episode.season.program.slug, 'seasonNumber':comment.episode.season.number, 'number':comment.episode.number   }) }}">
+                                        {{ comment.episode.season.program.slug }} - S{{ comment.episode.season.number }}
+                                        -
+                                        E{{ comment.episode.number }}</a></td>
+                                <td>{% include '_rate.html.twig' with {'value': comment.rate, 'valueMax': 5} %}</td>
+                                <td>
+                                    <a href="{{ path('comment_edit', {'programSlug': comment.episode.season.program.slug, 'seasonNumber': comment.episode.season.number, 'episodeNumber': comment.episode.number, 'comment_id': comment.id}) }}"
+                                       class="btn btn-primary active"
+                                       role="button" aria-pressed="true"><i
+                                                class="far fa-comment-dots"></i></a>
+                                </td>
+                                <td>
+                                    {{ include('comment/_delete_form.html.twig') }}</td>
+                            </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    Pas de commentaire pour l'instant.
+                {% endif %}
+            </div>
+        </div>
+        <div class="card bg-card">
+            <div class="card-body">
+                <h2 class="card-title">Mes informations: {{ user.email }}</h2>
+                <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-primary">Modifier mes données
+                    personnelles</a>
+                <a href="{{ path('app_reset_password') }}" class="btn btn-primary">Modifier mot de passe</a>
+                {{ include('user/_delete_form.html.twig') }}
+            </div>
+        </div>
     </div>
 {% endblock %}
