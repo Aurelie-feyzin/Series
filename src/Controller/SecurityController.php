@@ -6,12 +6,14 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Form\ResetPasswordType;
 use App\Security\LoginFormAuthentificatorAuthenticator;
+use App\Service\Mailer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
@@ -53,7 +55,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthentificatorAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthentificatorAuthenticator $authenticator, Mailer $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -75,6 +77,7 @@ class SecurityController extends AbstractController
             $entityManager->flush();
 
             // do anything else you need here, like send an email
+            $mailer->sendWelcomeMessage($user);
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
