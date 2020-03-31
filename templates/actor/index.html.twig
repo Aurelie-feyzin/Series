@@ -9,7 +9,7 @@
             {% for actor in actors %}
                 <div class="card bg-card">
                     <img class="card-img-top" alt="img {{ actor.displayName }}"
-                         src="{{ actor.poster?: asset('images/actor/placeholder_actor.png') }}">
+                         src="{{ actor.poster?: asset('build/images/actor/placeholder_actor.png') }}">
                     <div class="card-body">
                         <h5 class="card-title"><a
                                     href="{{ path('actor_show', {'slug': actor.slug}) }}">{{ actor.displayName }}</a>

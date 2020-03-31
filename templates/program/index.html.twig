@@ -9,7 +9,7 @@
         <div class="card-deck">
             {% for program in programs %}
                 <div class="card bg-card">
-                        <img class="card-img-top" alt="img {{ program.title }}" src="{{ program.poster?: asset('images/program/placeholder_program.jpg')  }}">
+                        <img class="card-img-top" alt="img {{ program.title }}" src="{{ program.poster?: asset('build/images/program/placeholder_program.jpg')  }}">
                     <div class="card-body">
                         <h5 class="card-title"><a
                                     href="{{ path('program_show', {'slug': program.slug}) }}">{{ program.title }}</a>

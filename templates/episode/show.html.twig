@@ -12,7 +12,7 @@
             épisode n°{{ episode.number }} {{ episode.title | title }}</h1>
         <div class="media media-bg">
             <img class="align-self-center mr-3"
-                 src="{{ episode.season.program.poster?: asset('images/program/placeholder_program.jpg') }}"
+                 src="{{ episode.season.program.poster?: asset('build/images/program/placeholder_program.jpg') }}"
                  alt="{{ episode.season.program.title }} poster">
             <div class="media-body pr-3">
                 <h2> Synopsis : </h2>
