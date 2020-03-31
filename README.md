@@ -35,3 +35,11 @@ symfony server:stop
 ```
 
 Ouvrir le navigateur web et aller à L’URL <http://localhost:8000>
+
+
+### Send Async Email (Messenger)
+
+Pour consommner les messages
+```bash
+ php bin/console messenger:consume
+```
