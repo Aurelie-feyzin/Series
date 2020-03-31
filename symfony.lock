@@ -152,6 +152,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "lorenzo/pinky": {
+        "version": "1.0.5"
+    },
     "maglnet/composer-require-checker": {
         "version": "2.0.0"
     },
@@ -659,7 +662,16 @@
     "theseer/fdomdocument": {
         "version": "1.6.6"
     },
+    "tijsverkoyen/css-to-inline-styles": {
+        "version": "2.2.2"
+    },
+    "twig/cssinliner-extra": {
+        "version": "v3.0.3"
+    },
     "twig/extra-bundle": {
+        "version": "v3.0.3"
+    },
+    "twig/inky-extra": {
         "version": "v3.0.3"
     },
     "twig/twig": {
