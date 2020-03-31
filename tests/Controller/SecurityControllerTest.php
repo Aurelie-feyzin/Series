@@ -71,7 +71,8 @@ class SecurityControllerTest extends WebTestCase
         $client->submit($form);
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
         $this->assertResponseRedirects('/user/' . $user->getId());
-        $this->assertEmailCount(1);
+        $transport = self::$container->get('messenger.transport.async');
+        $this->assertCount(1, $transport->get());
     }
 
     public function testRegisterWithPasswordTooShort(): void
@@ -86,7 +87,8 @@ class SecurityControllerTest extends WebTestCase
         ]);
         $client->submit($form);
         $this->assertSelectorExists('.form-error-message');
-        $this->assertEmailCount(0);
+        $transport = self::$container->get('messenger.transport.async');
+        $this->assertCount(0, $transport->get());
     }
 
     public function testRegisterWithEmailAlreadyUse(): void
@@ -102,7 +104,8 @@ class SecurityControllerTest extends WebTestCase
         ]);
         $client->submit($form);
         $this->assertSelectorExists('.form-error-message');
-        $this->assertEmailCount(0);
+        $transport = self::$container->get('messenger.transport.async');
+        $this->assertCount(0, $transport->get());
     }
 
     public function testSuccesfullResetPassword(): void
