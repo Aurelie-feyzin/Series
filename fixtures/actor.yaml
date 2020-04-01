@@ -1,5 +1,5 @@
 App\Entity\Actor:
-  actor_{1..50}:
+  actor_{1..250}:
     __construct:
       - '<firstname()>'
       - '<lastname()>'

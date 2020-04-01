@@ -12,7 +12,7 @@ App\Entity\User:
     roles: ['ROLE_ADMIN']
     password: <{hash}>
 
-  user_{1..25}:
+  user_{1..500}:
     email: '<email()>'
     roles: ['ROLE_SUBSCRIBER']
     password: <{hash}>
