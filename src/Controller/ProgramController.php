@@ -23,7 +23,7 @@ class ProgramController extends AbstractController
     public function index(ProgramRepository $programRepository): Response
     {
         return $this->render('program/index.html.twig', [
-            'programs' => $programRepository->findAll(),
+            'programs' => $programRepository->findAllForIndex(),
         ]);
     }
 
@@ -78,7 +78,7 @@ class ProgramController extends AbstractController
             throw $this->createNotFoundException('No category with ' . $categorySlug . ' slug, found in category\'s table.');
         }
 
-        $programs = $programRepository->findBy(['category' => $category], ['updatedAt' => 'DESC']);
+        $programs = $programRepository->findByCategories($category);
 
         return $this->render('program/index.html.twig', [
             'programs'     => $programs,

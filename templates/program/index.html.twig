@@ -7,20 +7,22 @@
     <div class="container-fluid">
 
         <div class="card-deck">
-            {% for program in programs %}
+            {% for programInfos in programs %}
+
                 <div class="card bg-card">
-                        <img class="card-img-top" alt="img {{ program.title }}" src="{{ program.poster?: asset('build/images/program/placeholder_program.jpg')  }}">
+                    <img class="card-img-top" alt="img {{ programInfos.program.title }}"
+                         src="{{ programInfos.program.poster?: asset('build/images/program/placeholder_program.jpg') }}">
                     <div class="card-body">
                         <h5 class="card-title"><a
-                                    href="{{ path('program_show', {'slug': program.slug}) }}">{{ program.title }}</a>
+                                    href="{{ path('program_show', {'slug': programInfos.program.slug}) }}">{{ programInfos.program.title }}</a>
                         </h5>
-                        <p class="card-text">{{ program.synopsis }}.</p>
+                        <p class="card-text">{{ programInfos.program.synopsis }}.</p>
                     </div>
                     <div class="card-footer">
-                        <span class="badge badge-pill badge-primary">{{ program.seasons | length }} saisons</span>
-                        <span class="badge badge-pill badge-primary">{{ program.getNbEpisodes }} episodes</span>
-                        <span class="badge badge-pill badge-primary">{{ program.actors | length }} acteurs</span>
-                        <small class="text-muted float-right">maj: {{ program.updatedAt | date("d/m/Y") }}</small>
+                        <span class="badge badge-pill badge-primary">{{ programInfos.nbSeasons}} saisons</span>
+                        <span class="badge badge-pill badge-primary">{{ programInfos.nbEpisodes }} episodes</span>
+                        <span class="badge badge-pill badge-primary">{{ programInfos.nbActors | length }} acteurs</span>
+                        <small class="text-muted float-right">maj: {{ programInfos.program.updatedAt | date("d/m/Y") }}</small>
                     </div>
                 </div>
                 <!-- Use modulo to add divs to handle break points -->
