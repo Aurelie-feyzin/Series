@@ -24,11 +24,11 @@
                                     class="far fa-comment-dots"></i></a>
                     {% endif %}
                 </h2>
-                {% for comment in episode.comments %}
-                    {% if comment.author == app.user %}
-                            {% include 'comment/_show.html.twig' with {'comment': comment } %}
+                {% for commentInfo in comments %}
+                    {% if commentInfo.comment.author == app.user %}
+                            {% include 'comment/_show.html.twig' with {'comment': commentInfo.comment } %}
                     {% else %}
-                            {% include 'comment/_show.html.twig' with {'comment': comment } %}
+                            {% include 'comment/_show.html.twig' with {'comment': commentInfo.comment } %}
                     {% endif %}
                 {% else %}
                     Pas de commentaire pour l'instant.

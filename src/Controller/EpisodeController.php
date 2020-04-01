@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Episode;
 use App\Form\EpisodeType;
+use App\Repository\CommentRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,16 +46,19 @@ class EpisodeController extends AbstractController
     /**
      * @Route("/{number}", name="episode_show", methods={"GET"})
      */
-    public function show(Episode $episode): Response
+    public function show(CommentRepository $commentRepository, Episode $episode): Response
     {
         $user = $this->getUser();
 
         if ($user) {
-            $userCommentEpisode = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['author'=> $user, 'episode'=> $episode]);
+            $userCommentEpisode = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['author' => $user, 'episode' => $episode]);
         }
+
+        $comments = $commentRepository->findCommentByEpisode($episode);
 
         return $this->render('episode/show.html.twig', [
             'episode'               => $episode,
+            'comments'              => $comments,
             'userHasCommentEpisode' => $userCommentEpisode ?? false,
         ]);
     }
@@ -92,6 +96,6 @@ class EpisodeController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('season_show', ['programSlug' => $episode->getSeason()->getProgram()->getSlug(), 'number' =>$episode->getSeason()->getNumber()]);
+        return $this->redirectToRoute('season_show', ['programSlug' => $episode->getSeason()->getProgram()->getSlug(), 'number' => $episode->getSeason()->getNumber()]);
     }
 }
