@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Comment;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -19,6 +20,19 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    public function findCommentByAuthor(User $author): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c as comment, e.number as episodeNumber', 's.number as seasonNumber', 'p.slug as programSlug')
+            ->leftJoin('c.episode', 'e')
+            ->leftJoin('e.season', 's')
+            ->leftJoin('s.program', 'p')
+            ->andWhere('c.author = :author')
+            ->setParameter('author', $author)
+            ->orderBy('c.updatedAt', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return Comment[] Returns an array of Comment objects
     //  */

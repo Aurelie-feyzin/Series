@@ -7,7 +7,7 @@
     {% if comment.author == app.user %}
         <div class="d-flex flex-row-reverse">
             <div class="p-2">
-                {{ include('comment/_delete_form.html.twig') }}
+                {% include'comment/_delete_form.html.twig' with {'programSlug': comment.episode.season.program.slug, 'seasonNumber': comment.episode.season.number, 'episodeNumber': comment.episode.number, 'commentId': comment.id  } %}
             </div>
           <div class="p-2">
                 <a href="{{ path('comment_edit', {'programSlug': comment.episode.season.program.slug, 'seasonNumber': comment.episode.season.number, 'episodeNumber': comment.episode.number, 'comment_id': comment.id}) }}"
