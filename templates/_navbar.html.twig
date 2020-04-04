@@ -10,20 +10,29 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="{{ path('category_index') }}" id="navbarDropdownMenuLink"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Categories
+                    {{ 'categories'|trans }}
                 </a>
                 <div class="dropdown-menu">
                     {{ render(path('category_navbar')) }}
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('actor_index') }}">Acteurs</a>
+                <a class="nav-link" href="{{ path('actor_index') }}">{{ 'actors'|trans }}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Favoris</a>
+                <a class="nav-link" href="#">{{ 'favorite'|trans }}</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-md-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    {{ 'language'|trans }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdown09">
+                    {% include '_locale_switcher.html.twig' %}
+                </div>
+            </li>
             {% if app.user %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="{{ path('category_index') }}" id="navbarDropdownMenuLink"
@@ -31,17 +40,18 @@
                         {{ app.user.email }}
                     </a>
                     <div class="dropdown-menu">
-                        <a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}"><i class="far fa-user">Mon
-                                compte</i></a>
-                        <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i>Déconnexion</a>
+                        <a class="nav-link" href="{{ path('user_show', {'id': app.user.id}) }}"><span
+                                    class="far fa-user"> {{ 'account'|trans }}</span></a>
+                        <a class="nav-link" href="{{ path('app_logout') }}"><span
+                                    class="fas fa-sign-out-alt"></span> {{ 'account.logout'|trans }}</a>
                     </div>
                 </li>
             {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+                    <a class="nav-link" href="{{ path('app_register') }}">{{ 'account.register'|trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                    <a class="nav-link" href="{{ path('app_login') }}">{{ 'account.login'|trans }}</a>
                 </li>
             {% endif %}
         </ul>

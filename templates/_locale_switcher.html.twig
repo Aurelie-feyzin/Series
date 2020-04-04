@@ -1,0 +1,13 @@
+{% set route = app.request.attributes.get('_route') %}
+{% set route_params = app.request.attributes.get('_route_params') %}
+{% set params = route_params|merge(app.request.query.all) %}
+
+{% set app_locales=locales|split('|') %}
+{% for locale in app_locales %}
+    {% if locale != app.request.locale %}
+        <a class="" href="{{ path(route, params|merge({ _locale: locale })) }}">
+            <img
+                    src="{{ asset('build/images/icon/' ~ locale ~ '_flag.png') }}" alt="{{ locale }} flag">
+        </a>
+    {% endif %}
+{% endfor %}
