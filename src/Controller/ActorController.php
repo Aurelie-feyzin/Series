@@ -51,7 +51,7 @@ class ActorController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="actor_show", methods={"GET"}, requirements={"slug"="[a-z0-9-]*"})
+     * @Route("/{slug}", name="actor_show", methods={"GET"}, requirements={"slug"="^[a-z0-9-]+$"})
      */
     public function show(Actor $actor): Response
     {
@@ -61,7 +61,7 @@ class ActorController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/edit", name="actor_edit", methods={"GET","POST"}, requirements={"slug"="[a-z0-9-]*"})
+     * @Route("/{slug}/edit", name="actor_edit", methods={"GET","POST"}, requirements={"slug"="^[a-z0-9-]+$"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Actor $actor): Response
@@ -82,7 +82,7 @@ class ActorController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="actor_delete", methods={"DELETE"}, requirements={"slug"="[a-z0-9-]*"})
+     * @Route("/{slug}", name="actor_delete", methods={"DELETE"}, requirements={"slug"="^[a-z0-9-]+$"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Actor $actor): Response

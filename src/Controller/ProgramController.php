@@ -52,7 +52,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="program_show", methods={"GET"}, requirements={"slug"="[a-z0-9-]*"})
+     * @Route("/{slug}", name="program_show", methods={"GET"}, requirements={"slug"="^[a-z0-9-]+$"})
      */
     public function show(Program $program): Response
     {
@@ -87,7 +87,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/edit", name="program_edit", methods={"GET","POST"}, requirements={"slug"="[a-z0-9-]*"}))
+     * @Route("/{slug}/edit", name="program_edit", methods={"GET","POST"}, requirements={"slug"="^[a-z0-9-]+$"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Program $program): Response
@@ -108,7 +108,7 @@ class ProgramController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="program_delete", methods={"DELETE"})
+     * @Route("/{slug}", name="program_delete", methods={"DELETE"}, requirements={"slug"="^[a-z0-9-]+$"})
      * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Program $program): Response
