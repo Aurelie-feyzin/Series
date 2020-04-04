@@ -13,6 +13,9 @@ trait PageWithOrWithoutLogin
 {
     use FixtureTrait;
 
+    /** @var string */
+    public $path_login = '/fr/login';
+
     /** @var LoaderInterface */
     private $loader;
 

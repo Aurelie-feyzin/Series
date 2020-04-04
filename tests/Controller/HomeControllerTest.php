@@ -4,16 +4,17 @@ namespace App\Tests\Controller;
 
 use App\Tests\Traits\PageWithOrWithoutLogin;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
 
 class HomeControllerTest extends WebTestCase
 {
     use PageWithOrWithoutLogin;
 
+    public const LOCALE = '/fr/';
+
     public function testHomePage(): void
     {
         $this->getPageWithoutUser('/');
-        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertResponseRedirects(self::LOCALE);
     }
 
     public function loadFixture(): void
@@ -26,7 +27,7 @@ class HomeControllerTest extends WebTestCase
 
     public function testNavInHomepage(): void
     {
-        $this->getPageWithoutUser('/');
+        $this->getPageWithoutUser(self::LOCALE);
         $this->assertSelectorExists('nav');
         $this->assertSelectorExists('ul');
         $this->assertSelectorExists('li');
@@ -36,7 +37,7 @@ class HomeControllerTest extends WebTestCase
 
     public function testFooterInHomepage(): void
     {
-        $this->getPageWithoutUser('/');
+        $this->getPageWithoutUser(self::LOCALE);
         $this->assertSelectorExists('footer');
     }
 }

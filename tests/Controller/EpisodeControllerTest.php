@@ -10,7 +10,7 @@ class EpisodeControllerTest extends WebTestCase
 {
     use PageWithOrWithoutLogin;
 
-    private const PARTIAL_URL = '/program/test-title/season/1/episode';
+    private const PARTIAL_URL = 'fr/program/test-title/season/1/episode';
 
     public function loadFixture(): void
     {
@@ -29,7 +29,7 @@ class EpisodeControllerTest extends WebTestCase
     {
         $this->loadFixture();
         $this->getPageWithoutUser(self::PARTIAL_URL . '/new');
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageEpisodeNewWithUserSubscriber(): void
@@ -57,7 +57,7 @@ class EpisodeControllerTest extends WebTestCase
     {
         $this->loadFixture();
         $this->getPageWithoutUser(self::PARTIAL_URL . '/1/edit');
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageEpisodeEditWithUserSubscriber(): void
@@ -78,7 +78,7 @@ class EpisodeControllerTest extends WebTestCase
     {
         $this->loadFixture();
         $this->getPageWithoutUser(self::PARTIAL_URL . '/1', 'DELETE');
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageEpisodeDeleteWithUserSubscriber(): void

@@ -11,6 +11,8 @@ class UserControllerTest extends WebTestCase
 {
     use PageWithOrWithoutLogin;
 
+    public const PARTIAL_URL_USER = '/fr/user/';
+
     public function loadFixture(): void
     {
         $this->loader->load(
@@ -23,15 +25,15 @@ class UserControllerTest extends WebTestCase
     {
         $this->loadFixture();
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
-        $this->getPageWithoutUser('/user/' . $user->getId());
-        $this->assertResponseRedirects('/login');
+        $this->getPageWithoutUser(self::PARTIAL_URL_USER . $user->getId());
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageUserShowWithUser(): void
     {
         $this->loadFixture();
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
-        $this->getPageWithUser($user, '/user/' . $user->getId());
+        $this->getPageWithUser($user, self::PARTIAL_URL_USER . $user->getId());
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
@@ -40,7 +42,7 @@ class UserControllerTest extends WebTestCase
         $this->loadFixture();
         $userConnected = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'author@email.fr']);
-        $this->getPageWithUser($userConnected, '/user/' . $user->getId());
+        $this->getPageWithUser($userConnected, self::PARTIAL_URL_USER . $user->getId());
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
@@ -48,7 +50,7 @@ class UserControllerTest extends WebTestCase
     {
         $this->loadFixture();
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'admin@email.fr']);
-        $this->getPageWithUser($user, '/user/' . $user->getId());
+        $this->getPageWithUser($user, self::PARTIAL_URL_USER . $user->getId());
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
@@ -57,7 +59,7 @@ class UserControllerTest extends WebTestCase
         $this->loadFixture();
         $admin = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'admin@email.fr']);
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'author@email.fr']);
-        $this->getPageWithUser($admin, '/user/' . $user->getId());
+        $this->getPageWithUser($admin, self::PARTIAL_URL_USER . $user->getId());
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertSelectorTextContains('h1', $user->getEmail());
         $this->assertSelectorTextNotContains('h1', $admin->getEmail());
@@ -67,15 +69,15 @@ class UserControllerTest extends WebTestCase
     {
         $this->loadFixture();
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
-        $this->getPageWithoutUser('/user/' . $user->getId() . '/edit');
-        $this->assertResponseRedirects('/login');
+        $this->getPageWithoutUser(self::PARTIAL_URL_USER . $user->getId() . '/edit');
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageUserEditLoginUser(): void
     {
         $this->loadFixture();
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
-        $this->getPageWithUser($user, '/user/' . $user->getId() . '/edit');
+        $this->getPageWithUser($user, self::PARTIAL_URL_USER . $user->getId() . '/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
@@ -84,7 +86,7 @@ class UserControllerTest extends WebTestCase
         $this->loadFixture();
         $userConnected = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'author@email.fr']);
-        $this->getPageWithUser($userConnected, '/user/' . $user->getId() . '/edit');
+        $this->getPageWithUser($userConnected, self::PARTIAL_URL_USER . $user->getId() . '/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
@@ -92,7 +94,7 @@ class UserControllerTest extends WebTestCase
     {
         $this->loadFixture();
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'admin@email.fr']);
-        $this->getPageWithUser($user, '/user/' . $user->getId() . '/edit');
+        $this->getPageWithUser($user, self::PARTIAL_URL_USER . $user->getId() . '/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
@@ -101,7 +103,7 @@ class UserControllerTest extends WebTestCase
         $this->loadFixture();
         $admin = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'admin@email.fr']);
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'author@email.fr']);
-        $this->getPageWithUser($admin, '/user/' . $user->getId() . '/edit');
+        $this->getPageWithUser($admin, self::PARTIAL_URL_USER . $user->getId() . '/edit');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertInputValueSame('user[email]', $user->getEmail());
         $this->assertInputValueNotSame('user[email]', $admin->getEmail());

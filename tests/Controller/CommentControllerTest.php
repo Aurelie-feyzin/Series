@@ -11,7 +11,7 @@ class CommentControllerTest extends WebTestCase
 {
     use PageWithOrWithoutLogin;
 
-    private const PARTIAL_URL = '/program/test-title/season/1/episode/1/comment';
+    private const PARTIAL_URL = 'fr/program/test-title/season/1/episode/1/comment';
 
     public function loadFixture(): void
     {
@@ -30,7 +30,7 @@ class CommentControllerTest extends WebTestCase
     {
         $this->loadFixture();
         $this->getPageWithoutUser(self::PARTIAL_URL . '/new');
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageCommentNewWithUserSubscriber(): void
@@ -52,7 +52,7 @@ class CommentControllerTest extends WebTestCase
         $this->loadFixture();
         $comment = $this->doctrine->getRepository(Comment::class)->findOneBy(['rate' => 3]);
         $this->getPageWithoutUser(self::PARTIAL_URL . '/' . $comment->getId() . '/edit');
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageCommentEditWithAuthor(): void
@@ -68,7 +68,7 @@ class CommentControllerTest extends WebTestCase
         $this->loadFixture();
         $comment = $this->doctrine->getRepository(Comment::class)->findOneBy(['rate' => 3]);
         $this->getPageWithUser($this->getUserSubscriber(), self::PARTIAL_URL . '/' . $comment->getId() . '/edit');
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageCommentEditWithUserAdmin(): void
@@ -84,7 +84,7 @@ class CommentControllerTest extends WebTestCase
         $this->loadFixture();
         $comment = $this->doctrine->getRepository(Comment::class)->findOneBy(['rate' => 3]);
         $this->getPageWithoutUser(self::PARTIAL_URL . '/' . $comment->getId(), 'DELETE');
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageCommentDeleteWithAuthor(): void
@@ -100,7 +100,7 @@ class CommentControllerTest extends WebTestCase
         $this->loadFixture();
         $comment = $this->doctrine->getRepository(Comment::class)->findOneBy(['rate' => 3]);
         $this->getPageWithUser($this->getUserSubscriber(), self::PARTIAL_URL . '/' . $comment->getId(), 'DELETE');
-        $this->assertResponseRedirects('/login');
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageCommentDeleteWithUserAdmin(): void

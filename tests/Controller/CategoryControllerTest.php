@@ -10,11 +10,16 @@ class CategoryControllerTest extends WebTestCase
 {
     use PageWithOrWithoutLogin;
 
+    private const PARTIAL_URL = 'fr/category/';
+    private const URI_NEW = self::PARTIAL_URL . 'new';
+    private const URI_SHOW_DELETE = self::PARTIAL_URL . 'test';
+    private const URI_EDIT = self::URI_SHOW_DELETE . '/edit';
+
     public function testPageCategoryIndex(): void
     {
         $this->loadFixture();
-        $this->getPageWithoutUser('/category/');
-        $this->assertResponseRedirects('/login');
+        $this->getPageWithoutUser(self::PARTIAL_URL);
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function loadFixture(): void
@@ -29,98 +34,98 @@ class CategoryControllerTest extends WebTestCase
     public function testPageCategoryIndexWithUserSubscriber(): void
     {
         $this->loadFixture();
-        $this->getPageWithUser($this->getUserSubscriber(), '/category/');
+        $this->getPageWithUser($this->getUserSubscriber(), self::PARTIAL_URL);
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageCategoryIndexWithUserAdmin(): void
     {
         $this->loadFixture();
-        $this->getPageWithUser($this->getUserAdmin(), '/category/');
+        $this->getPageWithUser($this->getUserAdmin(), self::PARTIAL_URL);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testPageCategoryNew(): void
     {
         $this->loadFixture();
-        $this->getPageWithoutUser('/category/new');
-        $this->assertResponseRedirects('/login');
+        $this->getPageWithoutUser(self::URI_NEW);
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageCategoryNewWithUserSubscriber(): void
     {
         $this->loadFixture();
-        $this->getPageWithUser($this->getUserSubscriber(), '/category/new');
+        $this->getPageWithUser($this->getUserSubscriber(), self::URI_NEW);
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageCategoryNewWithUserAdmin(): void
     {
         $this->loadFixture();
-        $this->getPageWithUser($this->getUserAdmin(), '/category/new');
+        $this->getPageWithUser($this->getUserAdmin(), self::URI_NEW);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testPageCategoryShow(): void
     {
         $this->loadFixture();
-        $this->getPageWithoutUser('/category/test');
-        $this->assertResponseRedirects('/login');
+        $this->getPageWithoutUser(self::URI_SHOW_DELETE);
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageCategoryShowWithUserSubscriber(): void
     {
         $this->loadFixture();
-        $this->getPageWithUser($this->getUserSubscriber(), '/category/test');
+        $this->getPageWithUser($this->getUserSubscriber(), self::URI_SHOW_DELETE);
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageCategoryShowWithUserAdmin(): void
     {
         $this->loadFixture();
-        $this->getPageWithUser($this->getUserAdmin(), '/category/test');
+        $this->getPageWithUser($this->getUserAdmin(), self::URI_SHOW_DELETE);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testPageCategoryEdit(): void
     {
         $this->loadFixture();
-        $this->getPageWithoutUser('/category/test/edit');
-        $this->assertResponseRedirects('/login');
+        $this->getPageWithoutUser(self::URI_EDIT);
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageCategoryEditWithUserSubscriber(): void
     {
         $this->loadFixture();
-        $this->getPageWithUser($this->getUserSubscriber(), '/category/test/edit');
+        $this->getPageWithUser($this->getUserSubscriber(), self::URI_EDIT);
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageCategoryEditWithUserAdmin(): void
     {
         $this->loadFixture();
-        $this->getPageWithUser($this->getUserAdmin(), '/category/test/edit');
+        $this->getPageWithUser($this->getUserAdmin(), self::URI_EDIT);
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
 
     public function testPageCategoryDelete(): void
     {
         $this->loadFixture();
-        $this->getPageWithoutUser('/category/test', 'DELETE');
-        $this->assertResponseRedirects('/login');
+        $this->getPageWithoutUser(self::URI_SHOW_DELETE, 'DELETE');
+        $this->assertResponseRedirects($this->path_login);
     }
 
     public function testPageCategoryDeleteWithUserSubscriber(): void
     {
         $this->loadFixture();
-        $this->getPageWithUser($this->getUserSubscriber(), '/category/test', 'DELETE');
+        $this->getPageWithUser($this->getUserSubscriber(), self::URI_SHOW_DELETE, 'DELETE');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN);
     }
 
     public function testPageCategoryDeleteWithUserAdmin(): void
     {
         $this->loadFixture();
-        $this->getPageWithUser($this->getUserAdmin(), '/category/test', 'DELETE');
+        $this->getPageWithUser($this->getUserAdmin(), self::URI_SHOW_DELETE, 'DELETE');
         $this->assertResponseStatusCodeSame(Response::HTTP_FOUND);
     }
 }
