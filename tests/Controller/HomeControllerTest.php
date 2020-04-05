@@ -9,12 +9,13 @@ class HomeControllerTest extends WebTestCase
 {
     use PageWithOrWithoutLogin;
 
-    public const LOCALE = '/fr/';
+    private const LOCALE_FR = '/fr/';
+    private const LOCALE_EN = '/en/';
 
     public function testHomePage(): void
     {
         $this->getPageWithoutUser('/');
-        $this->assertResponseRedirects(self::LOCALE);
+        $this->assertResponseRedirects(self::LOCALE_FR);
     }
 
     public function loadFixture(): void
@@ -27,7 +28,7 @@ class HomeControllerTest extends WebTestCase
 
     public function testNavInHomepage(): void
     {
-        $this->getPageWithoutUser(self::LOCALE);
+        $this->getPageWithoutUser(self::LOCALE_FR);
         $this->assertSelectorExists('nav');
         $this->assertSelectorExists('ul');
         $this->assertSelectorExists('li');
@@ -35,9 +36,21 @@ class HomeControllerTest extends WebTestCase
         // TODO ajouter un test pour vérifier que la liste des categories existe bien
     }
 
+    public function testLocaleFr(): void
+    {
+        $this->getPageWithoutUser(self::LOCALE_FR);
+        $this->assertSelectorTextContains('.nav-link', 'Catégories');
+    }
+
+    public function testLocaleEn(): void
+    {
+        $this->getPageWithoutUser(self::LOCALE_EN);
+        $this->assertSelectorTextContains('.nav-link', 'Categories');
+    }
+
     public function testFooterInHomepage(): void
     {
-        $this->getPageWithoutUser(self::LOCALE);
+        $this->getPageWithoutUser(self::LOCALE_FR);
         $this->assertSelectorExists('footer');
     }
 }
