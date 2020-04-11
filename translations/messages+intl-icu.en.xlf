@@ -15,11 +15,11 @@
       </trans-unit>
       <trans-unit id="U1doKCM" resname="account.register">
         <source>account.register</source>
-        <target>Sign in</target>
+        <target>Sign up</target>
       </trans-unit>
       <trans-unit id="E_t5j6Q" resname="account.login">
         <source>account.login</source>
-        <target>Sign up</target>
+        <target>Sign in</target>
       </trans-unit>
       <trans-unit id="piFuoD5" resname="categories">
         <source>categories</source>
@@ -44,6 +44,18 @@
       <trans-unit id="pO8wS6Q" resname="language">
         <source>language</source>
         <target>Language</target>
+      </trans-unit>
+      <trans-unit id="lw3B7Rv" resname="already.connected">
+        <source>already.connected</source>
+        <target>You are already connected</target>
+      </trans-unit>
+      <trans-unit id="giREF.l" resname="email">
+        <source>email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="XohImNo" resname="password">
+        <source>password</source>
+        <target>Enter your password</target>
       </trans-unit>
     </body>
   </file>

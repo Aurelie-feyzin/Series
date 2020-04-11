@@ -26,7 +26,7 @@ class SecurityControllerTest extends WebTestCase
         self::ensureKernelShutdown();
         $client = static::createClient();
         $crawler = $client->request('GET', $this->path_login);
-        $form = $crawler->selectButton('Connexion')->form([
+        $form = $crawler->selectButton('Se connecter')->form([
             'email'    => 'user@email.fr',
             'password' => 'badPassword',
         ]);
@@ -52,7 +52,7 @@ class SecurityControllerTest extends WebTestCase
         $user = $this->doctrine->getRepository(User::class)->findOneBy(['email' => 'user@email.fr']);
 
         $crawler = $client->request('GET', $this->path_login);
-        $form = $crawler->selectButton('Connexion')->form([
+        $form = $crawler->selectButton('Se connecter')->form([
             'email'    => 'user@email.fr',
             'password' => 'password',
         ]);
@@ -67,7 +67,7 @@ class SecurityControllerTest extends WebTestCase
         $client = static::createClient();
 
         $crawler = $client->request('GET', self::URL_REGISTER);
-        $form = $crawler->selectButton('S\'inscire')->form([
+        $form = $crawler->selectButton('S\'inscrire')->form([
             'registration_form[email]'         => 'user@email.fr',
             'registration_form[plainPassword]' => 'password',
         ]);
@@ -84,7 +84,7 @@ class SecurityControllerTest extends WebTestCase
         $client = static::createClient();
 
         $crawler = $client->request('GET', self::URL_REGISTER);
-        $form = $crawler->selectButton('S\'inscire')->form([
+        $form = $crawler->selectButton('S\'inscrire')->form([
             'registration_form[email]'         => 'user@email.fr',
             'registration_form[plainPassword]' => 'pass',
         ]);
@@ -101,7 +101,7 @@ class SecurityControllerTest extends WebTestCase
         $this->loadFixture();
 
         $crawler = $client->request('GET', self::URL_REGISTER);
-        $form = $crawler->selectButton('S\'inscire')->form([
+        $form = $crawler->selectButton('S\'inscrire')->form([
             'registration_form[email]'         => 'user@email.fr',
             'registration_form[plainPassword]' => 'password',
         ]);

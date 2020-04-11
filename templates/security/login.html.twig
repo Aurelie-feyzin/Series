@@ -11,15 +11,15 @@
 
             {% if app.user %}
                 <div class="mb-3">
-                    Vous êtes déjà connecté avec l'identifiant {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    {{ 'already.connected'|trans }}{{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
                 </div>
             {% endif %}
 
-            <h1 class="mb-3 font-weight-normal text-center">Connexion</h1>
-            <label for="inputEmail">Adresse e-mail :</label>
+            <h1 class="mb-3 font-weight-normal text-center">{{'account.login' | trans}}</h1>
+            <label for="inputEmail">{{'email' | trans}}</label>
             <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required
                    autofocus>
-            <label for="inputPassword" class="mt-3">Saisissez votre mot de passe :</label>
+            <label for="inputPassword" class="mt-3">{{ 'password' | trans }}</label>
             <input type="password" name="password" id="inputPassword" class="form-control" required>
 
             <input type="hidden" name="_csrf_token"
@@ -40,7 +40,7 @@
             #}
 
             <button class="btn btn-lg btn-primary mt-3 text-center" type="submit">
-                Connexion
+                {{'account.login'|trans}}
             </button>
         </form>
     </div>

@@ -45,6 +45,18 @@
         <source>language</source>
         <target>Langue</target>
       </trans-unit>
+      <trans-unit id="lw3B7Rv" resname="already.connected">
+        <source>already.connected</source>
+        <target>Vous êtes déjà connecté</target>
+      </trans-unit>
+      <trans-unit id="giREF.l" resname="email">
+        <source>email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="XohImNo" resname="password">
+        <source>password</source>
+        <target>Saissisez votre mot de passe</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
