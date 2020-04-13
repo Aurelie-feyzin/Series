@@ -135,6 +135,7 @@
     ],
     "db:load-fixtures": [
       "@db:reset",
+      "if [ -d public/uploads/program ];then rm -Rf public/uploads/program; fi; mkdir public/uploads/program;",
       "@php bin/console hautelook:fixtures:load --no-interaction --verbose --append"
     ],
     "test": [
