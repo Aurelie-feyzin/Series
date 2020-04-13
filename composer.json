@@ -54,7 +54,8 @@
     "symfony/webpack-encore-bundle": "^1.7",
     "symfony/yaml": "4.4.*",
     "twig/cssinliner-extra": "^3.0",
-    "twig/inky-extra": "^3.0"
+    "twig/inky-extra": "^3.0",
+    "vich/uploader-bundle": "^1.13"
   },
   "require-dev": {
     "brainmaestro/composer-git-hooks": "^2.8",
