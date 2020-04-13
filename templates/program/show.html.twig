@@ -5,7 +5,8 @@
     <div class="container-fluid">
     <h1 class="mt-0 text-center">{{ program.title }}</h1>
     <div class="media media-bg">
-        <img class="align-self-center mr-3" src="{{ program.poster?: asset('build/images/program/placeholder_program.jpg')  }}" alt="{{ program.title }} poster">
+       <img class="align-self-center mr-3" src="{{ program.poster? vich_uploader_asset(program, program.posterFile)
+        : asset('build/images/program/placeholder_program.jpg')  }}" alt="{{ program.title }} poster">
         <div class="media-body pr-3">
             <h2> Synopsis : </h2>
             <p>{{ program.synopsis }}</p>

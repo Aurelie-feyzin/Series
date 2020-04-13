@@ -9,6 +9,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\PropertyAccess\PropertyPath;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProgramType extends AbstractType
 {
@@ -20,7 +22,6 @@ class ProgramType extends AbstractType
         $builder
             ->add('title')
             ->add('synopsis')
-            ->add('poster')
             ->add('year')
             ->add('slug')
             ->add('country', EntityType::class, [
@@ -34,6 +35,10 @@ class ProgramType extends AbstractType
                 'choice_label' => 'name',
                 'expanded'     => false,
                 'multiple'     => false,
+            ])
+            ->add('posterFile', VichImageType::class, [
+                'required'       => false,
+                'download_label' => new PropertyPath('poster'),
             ]);
     }
 

@@ -8,12 +8,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProgramRepository")
  * @UniqueEntity("title")
  * @ORM\HasLifecycleCallbacks
+ * @Vich\Uploadable
  */
 class Program
 {
@@ -47,6 +50,14 @@ class Program
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $poster;
+
+    /**
+     * @Vich\UploadableField(mapping="program_file", fileNameProperty="poster")
+     *
+     * @var File
+     * @Assert\File()
+     */
+    private $posterFile;
 
     /**
      * @var Country|null
@@ -132,6 +143,21 @@ class Program
     public function setPoster(?string $poster): self
     {
         $this->poster = $poster;
+
+        return $this;
+    }
+
+    public function getPosterFile(): ?File
+    {
+        return $this->posterFile;
+    }
+
+    public function setPosterFile(File $poster = null): self
+    {
+        $this->posterFile = $poster;
+        if ($poster) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
 
         return $this;
     }

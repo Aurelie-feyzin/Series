@@ -11,7 +11,7 @@
 
                 <div class="card bg-card">
                     <img class="card-img-top" alt="img {{ programInfos.program.title }}"
-                         src="{{ programInfos.program.poster?: asset('build/images/program/placeholder_program.jpg') }}">
+                         src="{{ programInfos.program.poster? vich_uploader_asset(programInfos.program, programInfos.program.posterFile) : asset('build/images/program/placeholder_program.jpg') }}">
                     <div class="card-body">
                         <h5 class="card-title"><a
                                     href="{{ path('program_show', {'slug': programInfos.program.slug}) }}">{{ programInfos.program.title }}</a>
