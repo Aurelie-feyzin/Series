@@ -44,6 +44,14 @@ jobs:
         env:
           DATABASE_URL: mysql://root:symfony@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/symfony
 
+      - name: Check directory public/uploads/programs
+        working-directory: public
+        run: |
+          if [ -d ./uploads/program ];
+            then rm -Rf ./uploads/program;
+          fi;
+          mkdir -p  uploads/program;
+
       - name: Run Fixture
         run: php bin/console hautelook:fixtures:load --no-interaction --verbose --append
         env:
