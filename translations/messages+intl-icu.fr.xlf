@@ -57,6 +57,50 @@
         <source>password</source>
         <target>Saissisez votre mot de passe</target>
       </trans-unit>
+      <trans-unit id="wcEAnT8" resname="Update">
+        <source>Update</source>
+        <target>Mettre à jours</target>
+      </trans-unit>
+      <trans-unit id="qvIyBkY" resname="title">
+        <source>title</source>
+        <target>titre</target>
+      </trans-unit>
+      <trans-unit id="jZ_AtP6" resname="synopsis">
+        <source>synopsis</source>
+        <target>synopsis</target>
+      </trans-unit>
+      <trans-unit id="TLTqJVg" resname="year">
+        <source>year</source>
+        <target>année</target>
+      </trans-unit>
+      <trans-unit id="r.ZOT9U" resname="country">
+        <source>country</source>
+        <target>pays</target>
+      </trans-unit>
+      <trans-unit id="7bLNO3T" resname="category">
+        <source>category</source>
+        <target>catégorie</target>
+      </trans-unit>
+      <trans-unit id="YQXWzHa" resname="image">
+        <source>image</source>
+        <target>image</target>
+      </trans-unit>
+      <trans-unit id="C6m_YeJ" resname="edit.program">
+        <source>edit.program</source>
+        <target>Modifier le programme</target>
+      </trans-unit>
+      <trans-unit id="PEgjRvN" resname="back">
+        <source>back</source>
+        <target>Retour</target>
+      </trans-unit>
+      <trans-unit id="oHaLAIB" resname="new.program">
+        <source>new.program</source>
+        <target>Ajouter un programme</target>
+      </trans-unit>
+      <trans-unit id="FX3KkuQ" resname="save">
+        <source>save</source>
+        <target>Sauvegarder</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

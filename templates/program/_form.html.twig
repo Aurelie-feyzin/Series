@@ -1,4 +1,14 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+    {{ form_row(form.title, {'label': 'title'|trans|title}) }}
+    {{ form_row(form.synopsis, {'label': 'synopsis'|trans|title}) }}
+    {{ form_row(form.year, {'label': 'year'|trans|title}) }}
+    {{ form_row(form.country, {'label': 'country'|trans|title}) }}
+    {{ form_row(form.category, {'label': 'category'|trans|title}) }}
+    {{ form_row(form.posterFile, {'label': 'image'|trans|title}) }}
+
+    {{ form_rest(form) }}
+
+    <button class="btn btn-primary">{{ button_label|default('save')}}</button>
+
 {{ form_end(form) }}

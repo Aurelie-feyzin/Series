@@ -57,6 +57,50 @@
         <source>password</source>
         <target>Enter your password</target>
       </trans-unit>
+      <trans-unit id="wcEAnT8" resname="Update">
+        <source>Update</source>
+        <target>Update</target>
+      </trans-unit>
+      <trans-unit id="qvIyBkY" resname="title">
+        <source>title</source>
+        <target>title</target>
+      </trans-unit>
+      <trans-unit id="jZ_AtP6" resname="synopsis">
+        <source>synopsis</source>
+        <target>synopsis</target>
+      </trans-unit>
+      <trans-unit id="TLTqJVg" resname="year">
+        <source>year</source>
+        <target>year</target>
+      </trans-unit>
+      <trans-unit id="r.ZOT9U" resname="country">
+        <source>country</source>
+        <target>country</target>
+      </trans-unit>
+      <trans-unit id="7bLNO3T" resname="category">
+        <source>category</source>
+        <target>category</target>
+      </trans-unit>
+      <trans-unit id="YQXWzHa" resname="image">
+        <source>image</source>
+        <target>image</target>
+      </trans-unit>
+      <trans-unit id="C6m_YeJ" resname="edit.program">
+        <source>edit.program</source>
+        <target>edit program</target>
+      </trans-unit>
+      <trans-unit id="PEgjRvN" resname="back">
+        <source>back</source>
+        <target>back</target>
+      </trans-unit>
+      <trans-unit id="oHaLAIB" resname="new.program">
+        <source>new.program</source>
+        <target>Add a program</target>
+      </trans-unit>
+      <trans-unit id="FX3KkuQ" resname="save">
+        <source>save</source>
+        <target>save</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
