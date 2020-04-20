@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Program{% endblock %}
+{% block title %}{{ 'new.program'|trans }}{% endblock %}
 
 {% block main %}
-    <h1>Create new Program</h1>
+    <div class="container">
+        <h1 class="text-center">{{ 'new.program'|trans|capitalize }}<span class="float-right">
+                <a class='btn btn-primary m-1'
+                   href="{{ path('program_index') }}">{{ 'back'|trans }}</a>
+            </span></h1>
 
-    {{ include('program/_form.html.twig') }}
-
-    <a href="{{ path('program_index') }}">back to list</a>
+        {{ include('program/_form.html.twig', {'button_label': 'save'|trans|capitalize}) }}
+    </div>
 {% endblock %}
