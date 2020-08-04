@@ -25,7 +25,9 @@ trait PageWithOrWithoutLogin
     public function login(KernelBrowser $client, User $user): void
     {
         $session = $client->getContainer()->get('session');
-        $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+        /** @var array<string> $userRoles */
+        $userRoles = $user->getRoles();
+        $token = new UsernamePasswordToken($user, null, 'main', $userRoles);
         $session->set('_security_main', serialize($token));
         $session->save();
 
