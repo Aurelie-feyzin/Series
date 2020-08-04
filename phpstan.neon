@@ -8,6 +8,3 @@ parameters:
     checkGenericClassInNonGenericObjectType: false
     checkMissingIterableValueType: false
 
-    autoload_directories:
-        - %rootDir%/../../../src/Migrations
-
